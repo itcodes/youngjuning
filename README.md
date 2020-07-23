@@ -1,37 +1,23 @@
-# Hello Hexo
+<!--
+**youngjuning/youngjuning** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
+Here are some ideas to get you started:
 
-## Quick Start
+- 🔭 I’m currently working on ...
+- 🌱 I’m currently learning ...
+- 👯 I’m looking to collaborate on ...
+- 🤔 I’m looking for help with ...
+- 💬 Ask me about ...
+- 📫 How to reach me: ...
+- 😄 Pronouns: ...
+- ⚡ Fun fact: ...
+https://github.com/anuraghazra/github-readme-stats
+-->
 
-### Create a new post
+[![Youngjuning's github stats](https://github-readme-stats.vercel.app/api?username=youngjuning&show_icons=true)](https://github.com/youngjuning/youngjuning)
 
-```bash
-$ hexo new "My New Post"
-```
-
-More info: [Writing](https://hexo.io/docs/writing.html)
-
-### Run server
-
-```bash
-$ hexo server
-```
-
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-```bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-```bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+- 🔭 I’m currently working on React
+- 🌱 I’m currently learning Vue、Java、Flutter
+- 👯 I’m looking to collaborate on [bitchon](https://github.com/bitchon)
+- 💬 Ask me about React Native
+- 📫 How to reach me: youngjuning@aliyun.com
