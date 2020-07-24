@@ -1,11 +1,9 @@
----
 title: React必知必会
 date: 2020-07-20 16:11:35
 categories:
   - [前端开发,React]
 tags:
   - 必知必会
----
 
 ![](https://i.loli.net/2020/07/20/cbTvGZFO87RkBei.png)
 
@@ -31,7 +29,7 @@ tags:
 
 换句话说，组件受控指的是其状态由props控制而非内部state控制。
 
-### @quid/react-use-controlled-state（推荐）
+### 使用@quid/react-use-controlled-state（推荐）
 
 使用这个 hook，你可以让你的组件在受控和非受控之前切换，想要受控就传入 `value` 和 `onChange`。
 
@@ -75,7 +73,7 @@ export default () => {
 }
 ```
 
-### useEffect
+### 使用useEffect
 
 ```tsx
 import React, { useState, useEffect } from 'react';
@@ -122,7 +120,7 @@ export default () => {
 
 ## 类组件
 
-### setState
+### 正确使用 setState
 
 1、不要在 `this.setState` 内访问 `this.state`([react/no-access-state-in-setstate](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md)) 
 
@@ -146,7 +144,7 @@ componentDidMount() {
 }
 ```
 
-产生上面结果的原因是在开始重新渲染之前，React 会有意地进行“等待”，直到所有在组件的事件处理函数内调用的 `setState()` 完成之后。这样可以通过避免不必要的重新渲染来提升性能。
+产生上面结果的原因是在开始重新渲染之前，React 会有意地进行“等待”，直到所有在组件的事件处理函数内调用的 `setState()` 完成之后。这样可以通过避免不必要的重新渲染来提升性能。解决办法是给 `setState` 第一个参数传入函数：
 
 ```jsx
 constructor(props) {
@@ -180,9 +178,9 @@ componentDidMount() {
 
 ## Hooks
 
-### useEffect
+### 正确使用useEffect
 
-#### Capture Value
+#### 1、Capture Value 陷阱
 
 由于 useEffect 符合 Capture Value 的特性，拿到的 `count` 值永远是初始化的 `0`。所以打印出的 `count` 不会是1。
 
@@ -194,7 +192,7 @@ useEffect(() => {
 }, [])
 ```
 
-`setCount` 还有一种函数回调模式，你不需要关心当前值是什么，只要对 “旧的值” 进行修改即可。这样我们就可以立即获取新值。
+`setCount` 还有一种函数回调模式，你不需要关心当前值是什么，只要对 “旧的值” 进行修改即可。这样我们就可以立即获取新值。这一点和 `setState` 有异曲同工之妙。
 
 ```jsx
 const [count, setCount] = useState(0)

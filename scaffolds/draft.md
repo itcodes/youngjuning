@@ -6,6 +6,8 @@ tags:
 
 <!--more-->
 
+> 大家好，我是俊宁，[wx-promise-pro](https://github.com/youngjuning/wx-promise-pro) 的作者，微信`yang_jun_ning`，公众号`前端早茶馆`
+
 ## 联系作者
 
 > 本文首发于[杨俊宁的博客](https://youngjuning.js.org/)
