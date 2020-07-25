@@ -1,11 +1,19 @@
 ---
-title: {{ title }}
-date: {{ date }}
+title: React错误捕获与上传实战
+date: 2020-07-24 17:16:44
 categories:
 tags:
 ---
 
 <!--more-->
+
+> 大家好，我是俊宁，[wx-promise-pro](https://github.com/youngjuning/wx-promise-pro) 的作者，微信`yang_jun_ning`，公众号`前端早茶馆`
+
+## 错误边界（Error Boundaries）
+
+> 错误边界是一种 React 组件，这种组件可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI，而不是渲染那些崩溃了的子组件树。错误边界在渲染期间、生命周期方法和整个组件树的构造函数中捕获错误。 - React 官网
+
+以上笔者使用的是
 
 ## Catch Me
 

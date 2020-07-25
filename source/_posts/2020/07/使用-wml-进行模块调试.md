@@ -112,12 +112,12 @@ $ npm install -g wml
 }
 ```
 
-## 联系作者
+## Catch Me
 
-> 本文首发于个人博客：https://youngjuning.js.org/
+> GitHub: [youngjuning](https://github.com/youngjuning) | 微信: `yang_jun_ning` | 公众号: `前端早茶馆` | 邮箱: youngjuning@aliyun.com
 
-## Contacts
-
-|                           作者微信                           |                           赞赏作者                           |
+|                           微信                           |                           投食                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <img src="https://i.loli.net/2020/02/22/q2tLiGYvhIxm3Fl.jpg" width="200px"/> | <img src="https://i.loli.net/2020/02/23/q56X1eYZuITQpsj.png" width="200px"/> |
+
+本文首发于[杨俊宁的博客](https://youngjuning.js.org/)，创作不易，您的点赞👍是我坚持的动力

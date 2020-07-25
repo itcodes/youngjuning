@@ -122,7 +122,7 @@ export default () => {
 
 ### 正确使用 setState
 
-1、不要在 `this.setState` 内访问 `this.state`([react/no-access-state-in-setstate](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md)) 
+1、不要在 `this.setState` 内访问 `this.state`([react/no-access-state-in-setstate](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md))
 
 先来看下面的错误❌示例，两次打印出来的值都是 1。
 
@@ -203,6 +203,10 @@ useEffect(() => {
   })
 }, [])
 ```
+
+## 错误边界 （Error Boundaries）
+
+
 
 ## 红线与原则
 
@@ -322,10 +326,12 @@ React 有十分强大的组合模式。我们推荐使用组合而非继承来�
 
 - [怎么理解“声明式渲染”？](https://www.zhihu.com/question/68121329/answer/1351295887)
 
-## 联系作者
+## Catch Me
 
-> 本文首发于[杨俊宁的博客](https://youngjuning.js.org/)
+> GitHub: [youngjuning](https://github.com/youngjuning) | 微信: `yang_jun_ning` | 公众号: `前端早茶馆` | 邮箱: youngjuning@aliyun.com
 
-|                           作者微信                           |                           赞赏作者                           |
+|                           微信                           |                           投食                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <img src="https://i.loli.net/2020/02/22/q2tLiGYvhIxm3Fl.jpg" width="200px"/> | <img src="https://i.loli.net/2020/02/23/q56X1eYZuITQpsj.png" width="200px"/> |
+
+本文首发于[杨俊宁的博客](https://youngjuning.js.org/)，创作不易，您的点赞👍是我坚持的动力

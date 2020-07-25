@@ -7,7 +7,7 @@ tags:
  - UmiJS
 ---
 
-![image.png](https://i.loli.net/2020/06/23/LYNpFyiax7mT1ZB.png)
+![](https://i.loli.net/2020/06/23/LYNpFyiax7mT1ZB.png)
 
 <!--more-->
 
@@ -523,10 +523,42 @@ umi 项目默认启动 `umi ui`，会出现一个mini图标气泡浮在右下角
 }
 ```
 
-## 联系作者
+## 配置多环境
 
-> 本文首发于个人博客：https://youngjuning.js.org/
+> 参考: [umi如何配置多环境](https://github.com/umijs/umi/issues/1142#issuecomment-435803746)、[umi define config](https://umijs.org/zh-CN/config#define)
 
-|                           作者微信                           |                           赞赏作者                           |
+1、安装 cross-env 插件: `yarn add cross-env -D`
+
+2、在 `.umirc.js` 文件中添加 `define`
+
+```js
+export default {
+  define: {
+    // 添加这个自定义的环境变量
+    // 本地开发环境：dev，test环境：test，生产环境：prod
+    "process.env.PRO_ENV": process.env.PRO_ENV
+  },
+}
+```
+
+3、package.json 添加 npm scripts
+
+```json
+{
+  "scripts": {
+    "start": "cross-env PRO_ENV=dev umi dev",
+    "test": "cross-env PRO_ENV=test umi dev",
+    "build": "cross-env PRO_ENV=prod umi build",
+  }
+}
+```
+
+## Catch Me
+
+> GitHub: [youngjuning](https://github.com/youngjuning) | 微信: `yang_jun_ning` | 公众号: `前端早茶馆` | 邮箱: youngjuning@aliyun.com
+
+|                           微信                           |                           投食                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <img src="https://i.loli.net/2020/02/22/q2tLiGYvhIxm3Fl.jpg" width="200px"/> | <img src="https://i.loli.net/2020/02/23/q56X1eYZuITQpsj.png" width="200px"/> |
+
+本文首发于[杨俊宁的博客](https://youngjuning.js.org/)，创作不易，您的点赞👍是我坚持的动力
