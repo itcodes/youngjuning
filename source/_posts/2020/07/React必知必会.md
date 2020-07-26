@@ -206,7 +206,51 @@ useEffect(() => {
 
 ## 错误边界 （Error Boundaries）
 
+错误边界是一种 React 组件，这种组件**可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI**，而不是渲染那些崩溃了的子组件树。错误边界在渲染期间、生命周期方法和整个组件树的构造函数中捕获错误。
 
+> 注意: 我们在实践中通常在捕获到错误之后跳转到指定路由！
+
+```jsx
+import React, { useEffect } from 'react'
+import { Button } from 'antd'
+import * as Sentry from '@sentry/react'
+import useErrorBoundary from 'use-error-boundary'
+
+Sentry.init({
+  dsn: '',
+})
+
+export default () => {
+  const { ErrorBoundary, didCatch, error, errorInfo } = useErrorBoundary()
+  useEffect(() => {
+    if (didCatch) {
+      // 检测到错误之后进行的操作
+    }
+  }, [didCatch])
+
+  return (
+    <>
+      {didCatch ? (
+        <p>An error has been catched: {error.message}</p>
+      ) : (
+        <ErrorBoundary>
+          <MyWidget />
+        </ErrorBoundary>
+      )}
+    </>
+  )
+}
+```
+
+错误边界**无法**捕获以下场景中产生的错误：
+
+- 事件处理
+- 异步代码（例如 `setTimeout` 或 `requestAnimationFrame` 回调函数）
+- 服务端渲染
+- 它自身抛出来的错误（并非它的子组件）
+- 自 React 16 起，任何未被错误边界捕获的错误将会导致整个 React 组件树被卸载。
+
+> 官方鼓励使用 JS 错误报告服务（或自行构建），这样你能了解关于生产环境中出现的未捕获异常，并将其修复。我们可以使用  sentry。
 
 ## 红线与原则
 
