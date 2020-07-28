@@ -1,6 +1,7 @@
 title: React必知必会
 date: 2020-07-20 16:11:35
 categories:
+
   - [前端开发,React]
 tags:
   - 必知必会
@@ -9,7 +10,9 @@ tags:
 
 <!--more-->
 
-## 理解声明式渲染
+## 概念理解
+
+### 声明式渲染
 
 > React 使创建交互式 UI 变得轻而易举。为你应用的每一个状态设计简洁的视图，当数据改变时 React 能有效地更新并正确地渲染组件。
 > 以声明式编写 UI，可以让你的代码更加可靠，且方便调试。- React 官网
@@ -21,106 +24,11 @@ tags:
 
 > 翻译过来其实就是React解放了开发者的一只手，从此开发者只需要关心数据的声明和数据的更新。至于如何映射到DOM上，框架内部去处理（并且处理地更高效，更稳定）
 
-## 理解受控组件
+## 组件
 
-在 HTML 中，表单元素（如`<input>`、 `<textarea>` 和 `<select>`）通常自己维护 state，并根据用户输入进行更新。而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 [`setState()`](https://zh-hans.reactjs.org/docs/react-component.html#setstate)来更新。
+组件，从概念上类似于 JavaScript 函数。它接受任意的入参（即 “props”），并返回用于描述页面展示内容的 React 元素。
 
-我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。
-
-换句话说，组件受控指的是其状态由props控制而非内部state控制。
-
-### 使用@quid/react-use-controlled-state（推荐）
-
-使用这个 hook，你可以让你的组件在受控和非受控之前切换，想要受控就传入 `value` 和 `onChange`。
-
-```js
-import React,{useState} from 'react';
-import useControlledState from '@quid/react-use-controlled-state'
-
-type Props =
-  | {
-      defaultValue?: undefined;
-      value;
-      onChange;
-    }
-  | {
-      defaultValue;
-      value?: undefined;
-      onChange?: undefined;
-    };
-
-const ControlledComponent = (props: Props) => {
-  const [value, setValue] = useControlledState(props.defaultValue, props.value, props.onChange);
-
-  return (
-    <button type="button" onClick={() => setValue(current => !current)}>
-      {value === true ? 'component is open' : 'component is closed'}
-    </button>
-  );
-};
-
-export default () => {
-  const [value, setValue] = useState(false)
-  const handleChange = (params) => {
-    setValue(params)
-  }
-
-  return (
-    <div>
-      <ControlledComponent value={value} onChange={handleChange}/>
-    </div>
-  );
-}
-```
-
-### 使用useEffect
-
-```tsx
-import React, { useState, useEffect } from 'react';
-
-type Props =
-  | {
-      defaultValue?: undefined;
-      value;
-      onChange;
-    }
-  | {
-      defaultValue;
-      value?: undefined;
-      onChange?: undefined;
-    };
-
-const ControlledComponent = (props: Props) => {
-  const [value, setValue] = useState(props.value || props.defaultValue);
-
-  useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
-
-  return (
-    <button type="button" onClick={() => setValue(current => !current)}>
-      {value === true ? 'component is open' : 'component is closed'}
-    </button>
-  );
-};
-
-export default () => {
-  const [value, setValue] = useState(false);
-  const handleChange = params => {
-    setValue(params);
-  };
-
-  return (
-    <div>
-      <ControlledComponent value={value} onChange={handleChange} />
-    </div>
-  );
-};
-```
-
-## 类组件
-
-### 正确使用 setState
+#### 正确使用 setState
 
 1、不要在 `this.setState` 内访问 `this.state`([react/no-access-state-in-setstate](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md))
 
@@ -176,11 +84,106 @@ componentDidMount() {
 }
 ```
 
+### 受控组件
+
+在 HTML 中，表单元素（如`<input>`、 `<textarea>` 和 `<select>`）通常自己维护 state，并根据用户输入进行更新。而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 [`setState()`](https://zh-hans.reactjs.org/docs/react-component.html#setstate)来更新。
+
+我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。
+
+换句话说，组件受控指的是其状态由props控制而非内部state控制。
+
+#### 使用@quid/react-use-controlled-state（推荐）
+
+使用这个 hook，你可以让你的组件在受控和非受控之前切换，想要受控就传入 `value` 和 `onChange`。
+
+```js
+import React,{useState} from 'react';
+import useControlledState from '@quid/react-use-controlled-state'
+
+type Props =
+  | {
+      defaultValue?: undefined;
+      value;
+      onChange;
+    }
+  | {
+      defaultValue;
+      value?: undefined;
+      onChange?: undefined;
+    };
+
+const ControlledComponent = (props: Props) => {
+  const [value, setValue] = useControlledState(props.defaultValue, props.value, props.onChange);
+
+  return (
+    <button type="button" onClick={() => setValue(current => !current)}>
+      {value === true ? 'component is open' : 'component is closed'}
+    </button>
+  );
+};
+
+export default () => {
+  const [value, setValue] = useState(false)
+  const handleChange = (params) => {
+    setValue(params)
+  }
+
+  return (
+    <div>
+      <ControlledComponent value={value} onChange={handleChange}/>
+    </div>
+  );
+}
+```
+
+#### 使用useEffect
+
+```tsx
+import React, { useState, useEffect } from 'react';
+
+type Props =
+  | {
+      defaultValue?: undefined;
+      value;
+      onChange;
+    }
+  | {
+      defaultValue;
+      value?: undefined;
+      onChange?: undefined;
+    };
+
+const ControlledComponent = (props: Props) => {
+  const [value, setValue] = useState(props.value || props.defaultValue);
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
+  return (
+    <button type="button" onClick={() => setValue(current => !current)}>
+      {value === true ? 'component is open' : 'component is closed'}
+    </button>
+  );
+};
+
+export default () => {
+  const [value, setValue] = useState(false);
+  const handleChange = params => {
+    setValue(params);
+  };
+
+  return (
+    <div>
+      <ControlledComponent value={value} onChange={handleChange} />
+    </div>
+  );
+};
+```
+
 ## Hooks
 
 ### 正确使用useEffect
-
-#### 1、Capture Value 陷阱
 
 由于 useEffect 符合 Capture Value 的特性，拿到的 `count` 值永远是初始化的 `0`。所以打印出的 `count` 不会是1。
 
@@ -251,6 +254,45 @@ export default () => {
 - 自 React 16 起，任何未被错误边界捕获的错误将会导致整个 React 组件树被卸载。
 
 > 官方鼓励使用 JS 错误报告服务（或自行构建），这样你能了解关于生产环境中出现的未捕获异常，并将其修复。我们可以使用  sentry。
+
+## 在运行时选择组件类型
+
+你不能将通用表达式作为 React 元素类型。如果你想通过通用表达式来（动态）决定元素类型，你需要首先将它赋值给大写字母开头的变量。这通常用于根据 prop 来渲染不同组件的情况下:
+
+```jsx
+import React from 'react';
+import { PhotoStory, VideoStory } from './stories';
+
+const components = {
+  photo: PhotoStory,
+  video: VideoStory
+};
+
+function Story(props) {
+  // 错误！JSX 类型不能是一个表达式。
+  return <components[props.storyType] story={props.story} />;
+}
+```
+
+要解决这个问题, 需要首先将类型赋值给一个大写字母开头的变量：
+
+```jsx
+import React from 'react';
+import { PhotoStory, VideoStory } from './stories';
+
+const components = {
+  photo: PhotoStory,
+  video: VideoStory
+};
+
+function Story(props) {
+  // 正确！JSX 类型可以是大写字母开头的变量。
+  const SpecificStory = components[props.storyType];
+  return <SpecificStory story={props.story} />;
+}
+```
+
+> 注意：基于这个，我们可以实现一个动态表单组件。
 
 ## 红线与原则
 
@@ -348,14 +390,6 @@ export default () => {
 ### 组合VS继承
 
 React 有十分强大的组合模式。我们推荐使用组合而非继承来实现组件间的代码重用。
-
-### React 哲学
-
-1. 第一步：将设计好的 UI 划分为组件层级
-2. 第二步：用 React 创建一个静态版本
-3. 第三步：确定 UI state 的最小（且完整）表示
-4. 确定 state 放置的位置
-5. 添加反向数据流
 
 ## 注意事项
 
