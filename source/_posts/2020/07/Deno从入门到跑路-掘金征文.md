@@ -130,6 +130,18 @@ deno upgrade --version 1.0.1
 
 推荐使用 VSCode 及 VSCode Deno进行开发，VSCode Deno 是 [justjavac](https://juejin.im/user/55b9d25600b09db36bbe2e9a) 大佬开发的。
 
+为了解决与其他正常 node 项目的冲突，建议大家请在项目中新建 `.vscode/settings.json` 文件并填入以下配置：
+
+```json
+{
+  "deno.enable": true, // set false for user setting
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+}
+```
+
 ## 快速上手
 
 ### Hello World
