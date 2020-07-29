@@ -250,6 +250,48 @@ for await (const conn of listener) {
 
 像示例 `cat.ts` 一样，`copy()` 函数不会产生不必要的内存拷贝。它从内核接收数据包，然后发送回去，就这么简单。
 
+## 依赖管理
+
+在任何地方导入 URL 似乎都不方便。如果其中一个 URL ，链接到了一个稍微不同的库版本呢？在大型项目中，维护 URL 是否容易出错？解决方案是在中心deps.ts文件，导入和重新导出外部库（与 Node 的package.json文件目的相同）。例如，假设您在一个大型项目中，使用了上述测试库。要做的，不是在任何地方导入"https://deno.land/std/testing/mod.ts"，而是可以创建一个 `deps.ts`，用来导出第三方代码：
+
+```ts
+export * from "https://deno.land/std/http/server.ts"; // 推荐
+export * as Server from "https://deno.land/std/http/server.ts";
+export { default as Server } from "https://deno.land/std/http/server.ts";
+```
+
+在整个项目中，都可以从deps.ts导入，这样就可以避免对同一个 URL 进行多次引用：
+
+```ts
+import {test, assertEquals} from './deps.ts';
+```
+
+这种设计避免了，由于包管理软件、集中的代码库和多余的文件格式，而产生的过多复杂性。
+
+## 打包
+
+`deno bundle` 自带打包和 tree shaking 功能，可以将我们的代码打包成单文件
+
+```shell
+#!/bin/sh
+deno bundle ./src/index.ts ./dist/index.js
+```
+
+`deno install` 可以将我们的代码生成可执行文件进行直接使用
+
+```shell
+#!/bin/sh
+deno install --allow-read  --allow-net --allow-write -n youngjuning ./src/index.ts
+```
+
+> 我们也可以直接安装远程的库: `deno install --allow-read --allow-net https://deno.land/std/http/file_server.ts`
+
+deno的可执行文件默认都放在 `/Users/yangjunning/.deno/bin/` 目录下，我们需要将它注册到环境变量中:
+
+```sh
+$ export PATH="/Users/yangjunning/.deno/bin:$PATH"
+```
+
 ## 权限
 
 我们已经知道了默认情况下，Deno是安全的。因此 Deno 模块没有文件、网络或环境的访问权限，除非您为它授权。在命令行参数中为 deno 进程授权后才能访问安全敏感的功能。
@@ -336,8 +378,6 @@ $ deno run --alow-net index.ts
 
 远程代码在第一次运行时获取并缓存，直到代码通过 `--reload` 选项运行。（所以它在飞机上也能工作）。否则 TSC 编译器会报 ts(10002) 的警告⚠️。
 
-或者使用 `deno install https://deno.land/std@0.62.0/http/server.ts` 事先下载。
-
 ![](https://i.loli.net/2020/07/27/2ahxfNB7jLCbTyY.png)
 
 > 注意：从远程 URL 加载的模块或文件应当是不可变且可缓存的。
@@ -368,7 +408,7 @@ ry 大佬自己在演讲中也坦诚，短时间内Deno还无法替代NodeJS，�
 
 |                             微信                             |                             投食                             |                            公众号                            |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="https://i.loli.net/2020/02/22/q2tLiGYvhIxm3Fl.jpg" width="200px"/> | <img src="https://i.loli.net/2020/02/23/q56X1eYZuITQpsj.png" width="200px"/> | <img src="https://i.loli.net/2020/07/28/6AyutjZ1XI4aUDV.jpg" width="200px"/> |
+| <img src="https://i.loli.net/2020/02/22/q2tLiGYvhIxm3Fl.jpg" width="200px"/> | <img src="https://i.loli.net/2020/02/23/q56X1eYZuITQpsj.png" width="200px"/> | <img src="https://i.loli.net/2020/07/29/BiWte5F2xjnI1f8.jpg" width="200px"/> |
 
 本文首发于[杨俊宁的博客](https://youngjuning.js.org/)，创作不易，您的点赞👍评论是我坚持的动力！！！
 
