@@ -40,8 +40,11 @@ tags:
 - 天生支持 TypeScript。
 - 只有一个单一的可执行文件。
 - 自带实用工具，例如依赖检查器（deno info）和 代码格式化工具（deno fmt）。
-- 有一套经过审核（审计）的标准模块， 确保与 Deno 兼容： [deno.land/std](https://deno.bootcss.com/std)
+- 有一套经过审核（审计）的标准模块，确保与 Deno 兼容： [deno.land/std](https://deno.bootcss.com/std)
 - 脚本代码能被打包为一个单独的 JavaScript 文件。
+- 去中心化Package：没有 node_modules 和 package.json；Package 通过 URL 来加载--http://deno.land/x/；加载时缓存到硬盘
+- Top Level Await：在 Deno 中编写代码，不需要将 await 包裹在异步函数里。真香！
+- 其他：内置测试、浏览器兼容的API、执行Wasm二进制文件、Modern JS、ES Modules
 
 ### 为什么开发 Deno？
 
@@ -203,6 +206,15 @@ await Deno.stdout.write(body);
 $ deno run --allow-net sendHttp.ts http://example.com
 // 或
 $ deno run --allow-net=example.com https://deno.land/std/examples/curl.ts https://example.com
+```
+
+### 写一个文件
+
+```ts
+const encoder = new TextEncoder();
+const greetText = encoder.encode("Hello World\nMy name is youngjuning!")
+
+await Deno.writeFile("greet.txt", greetText)
 ```
 
 ### 读取一个文件
