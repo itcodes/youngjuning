@@ -25,7 +25,7 @@ tags:
 
 2、趋势，下图中我们可以清楚地看到，Deno从2018年创建至今已斩获近70K的star，尤其是 2020-05-13 发布 1.0 之后，更是迎来一波高峰。
 
-<img src="https://i.loli.net/2020/07/27/CBkE2ldHmheSvZz.png" style="zoom:70%;" />
+<img src="https://i.loli.net/2020/08/03/DszAScVQmYNflg8.png" style="zoom:70%;" />
 
 3、掘金征文活动，上次沸点活动有幸获赠豪华升降桌，但是我最想要的其实是掘金周边大礼包。
 
@@ -430,16 +430,6 @@ $ deno run --alow-net index.ts
 
 1. 远程代码在第一次运行时获取并缓存，直到代码通过 `--reload` 刷新缓存。（所以它在飞机上也能工作）。
 2. 从远程 URL 加载的模块或文件应当是不可变且可缓存的。
-
-## 为什么跑路？
-
-ry 大佬自己在演讲中也坦诚，短时间内Deno还无法替代NodeJS，而且还有很长的路要走，所以实际项目还是要用Node。相信大家从 deno和node的npm下载趋势对比也能有所判断。
-
-![](https://i.loli.net/2020/07/27/KAgnsMy5zt98oOH.png)
-
-但是时机成熟我胡汉三还会回来的，文章名字我都想好了《Deno从跑路到实战》，我相信以ry的勤奋，这个等待不会很久，大家从下图自行感受什么叫优秀的人还比你努力吧：
-
-![](https://i.loli.net/2020/07/27/QLXvUIts1a8J9Gl.png)
 
 ## 参考资料
 
