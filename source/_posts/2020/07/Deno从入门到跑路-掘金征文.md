@@ -353,6 +353,46 @@ $ deno run --allow-net=github.com,deno.land fetch.ts
 $ deno run --allow-net fetch.ts
 ```
 
+## 插件推荐
+
+### [denv](https://deno.land/x/denv#denv)
+
+一个适用于 Deno 的类似于 [dotenv](https://github.com/motdotla/dotenv)的插件
+
+**使用**
+
+你可以直接导入它，然后就可以使用和它同级目录的`.env` 文件：
+
+```ts
+import "https://deno.land/x/denv/mod.ts";
+console.log(Deno.env.get("HOME"));  // e.g. outputs "/home/alice"
+console.log(Deno.env.get("MADE_UP_VAR"));  // outputs "Undefined"
+```
+
+**Env File 规则**
+
+除了 `double quoted values expand new lines` 没有实现，其他的规则和 dotenv 一样。
+
+## 打包
+
+`deno bundle` 自带打包和 tree shaking 功能，可以将我们的代码打包成单文件
+
+```shell
+$ deno bundle ./src/index.ts ./dist/index.js
+```
+
+`deno install` 可以将我们的代码生成可执行文件进行直接使用
+
+```shell
+$ deno install --allow-read  --allow-net --allow-write -n youngjuning ./src/index.ts
+```
+
+deno的可执行文件默认都放在 `/Users/yangjunning/.deno/bin/` 目录下，我们需要将它注册到环境变量中:
+
+```sh
+$ export PATH="/Users/yangjunning/.deno/bin:$PATH"
+```
+
 ## FAQ
 
 ### 1、权限标志符位置的问题
