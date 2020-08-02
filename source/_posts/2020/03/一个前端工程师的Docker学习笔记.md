@@ -17,56 +17,19 @@ Docker 是个划时代的开源项目，它彻底释放了计算虚拟化的威�
 
 本文是笔者以一个前端工程师的视角学习 Docker 过程中的笔记，如果对您有所帮助，荣幸之至。
 
-# 基础入门
+## Docker 简介
 
 **Docker** 使用 `Google` 公司推出的 [Go 语言](https://golang.org/) 进行开发实现，基于 `Linux` 内核的 [cgroup](https://zh.wikipedia.org/wiki/Cgroups)，[namespace](https://en.wikipedia.org/wiki/Linux_namespaces)，以及 [OverlayFS](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) 类的 [Union FS](https://en.wikipedia.org/wiki/Union_mount) 等技术，对进程进行封装隔离，属于 [操作系统层面的虚拟化技术](https://en.wikipedia.org/wiki/Operating-system-level_virtualization)。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。最初实现是基于 [LXC](https://linuxcontainers.org/lxc/introduction/)，从 0.7 版本以后开始去除 `LXC`，转而使用自行开发的 [libcontainer](https://github.com/docker/libcontainer)，从 1.11 开始，则进一步演进为使用 [runC](https://github.com/opencontainers/runc) 和 [containerd](https://github.com/containerd/containerd)。
 
-## 概念
+## Docker 核心概念
 
-### **DevOps**
-
-DevOps（**Dev**elopment和**Op**erations的组合词）是一种重视软件开发人员（Dev）和IT运维技术人员（Ops）之间沟通合作的文化、运动或惯例。透过自动化“软件交付”和“架构变更”的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。
-
-DevOps 的引入能对产品交付、[测试](https://zh.wikipedia.org/wiki/测试)、功能开发和[维护](https://zh.wikipedia.org/wiki/軟體維護)（包括曾经罕见但如今已屡见不鲜的“[热补丁](https://zh.wikipedia.org/wiki/Hot_fix)”）起到意义深远的影响。在缺乏 DevOps 能力的组织中，开发与运营之间存在着信息“鸿沟”。例如运营人员要求更好的可靠性和安全性，开发人员则希望[基础设施](https://zh.wikipedia.org/wiki/基础设施)响应更快，而业务用户的需求则是更快地将更多的特性发布给最终用户使用。这种信息鸿沟就是最常出问题的地方。
-
-### 容器
-
-容器有效地将由单个操作系统管理的资源划分到孤立的组中，以更好地在孤立的组之间平衡有冲突的资源使用需求。与虚拟化相比，这样既不需要指令级模拟，也不需要即时编译。容器可以在核心 CPU 本地运行指令，而不需要任何专门的解释机制。此外，也避免了准虚拟化（para-virtualization）和系统调用替换中的复杂性。
-
-### 虚拟化
-
-在计算机技术中，虚拟化是一种资源管理技术，是将计算机中的各种实体资源，如服务器、网络、内存及存储等，予以抽象、转换后呈现出来，打破实体结构间的不可切割的障碍，使用户可以用比原来的组态更好的方式来应用这些资源。
-
-### Docker 与虚拟机比较
-
-| 特性       | 容器               | 虚拟机      |
-| ---------- | ------------------ | ----------- |
-| 启动       | 秒级               | 分钟级      |
-| 硬盘使用   | 一般为 `MB`        | 一般为 `GB` |
-| 性能       | 接近原生           | 弱于        |
-| 系统支持量 | 单机支持上千个容器 | 一般几十个  |
-
-如下图，虚拟机是在硬件层面实现虚拟化，需要额外的虚拟机管理应用和虚拟机操作系统层。Docker容器是在操作系统层面上实现虚拟化，直接复用本地主机的操作系统，因此更加轻量级。
-
-![](https://i.loli.net/2020/03/31/mZiyHL2kGAgrMFx.png)
-
-### Docker核心概念
-
-#### 镜像（Image）
+### 镜像（Image）
 
 我们都知道，操作系统分为内核和用户空间。对于 Linux 而言，内核启动后，会挂载 `root` 文件系统为其提供用户空间支持。而 Docker 镜像（Image），就相当于是一个 `root` 文件系统。比如官方镜像 `ubuntu:18.04` 就包含了完整的一套 Ubuntu 18.04 最小系统的 `root` 文件系统。
 
 Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。
 
-**分层存储**
-
-因为镜像包含操作系统完整的 `root` 文件系统，其体积往往是庞大的，因此在 Docker 设计时，就充分利用 [Union FS](https://en.wikipedia.org/wiki/Union_mount) 的技术，将其设计为分层存储的架构。所以严格来说，镜像并非是像一个 ISO 那样的打包文件，镜像只是一个虚拟的概念，其实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。
-
-镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生改变，后一层上的任何改变只发生在自己这一层。比如，删除前一层文件的操作，实际不是真的删除前一层的文件，而是仅在当前层标记为该文件已删除。在最终容器运行的时候，虽然不会看到这个文件，但是实际上该文件会一直跟随镜像。因此，在构建镜像的时候，需要额外小心，每一层尽量只包含该层需要添加的东西，任何额外的东西应该在该层构建结束前清理掉。
-
-分层存储的特征还使得镜像的复用、定制变的更为容易。甚至可以用之前构建好的镜像作为基础层，然后进一步添加新的层，以定制自己所需的内容，构建新的镜像。
-
-#### 容器（Container）
+### 容器（Container）
 
 镜像（`Image`）和容器（`Container`）的关系，就像是面向对象程序设计中的 `类` 和 `实例` 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。
 
@@ -80,7 +43,7 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 数据卷的生存周期独立于容器，容器消亡，数据卷不会消亡。因此，使用数据卷后，容器删除或者重新运行之后，数据却不会丢失。
 
-#### 仓库注册服务器（Registry）
+### 仓库注册服务器（Registry）
 
 一个 **Docker Registry** 中可以包含多个 **仓库**（`Repository`）；每个仓库可以包含多个 **标签**（`Tag`）；每个标签对应一个镜像。
 
@@ -92,7 +55,7 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 **公有 Docker Registry：**
 
--  [Docker Hub](https://hub.docker.com/)
+- [Docker Hub](https://hub.docker.com/)
 - [网易云镜像服务](https://c.163.com/hub#/m/library/)
 - [DaoCloud 镜像市场](https://hub.daocloud.io/)
 - [aliyun镜像库](https://cr.console.aliyun.com/)
@@ -101,18 +64,6 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 - [Sonatype Nexus](https://vuepress.mirror.docker-practice.com/repository/nexus3_registry.html)
 - [Harbor](https://github.com/goharbor/harbor)
-
-### 守护进程 daemon
-
-在一个多任务的电脑操作系统中，守护进程（daemon）是一种在后台执行的电脑程序。此类程序会被以进程的形式初始化。守护进程程序的名称通常以字母”d“结尾：例如，`syslogd` 就是指管理系统日志的守护进程。
-
-通常，守护进程没有任何存在的父进程（即PPID=1），且在 UNIX 系统进程层级中直接位于 init 之下。守护进程程序通常通过如下方法是自己成为守护进程：对一个子进程进行 fork，然后使其父进程立即终止，使得这个子进程能在 init 下运行。这种方法通常被称为”脱壳“。
-
-系统通常在启动时一同引导守护进程。守护进程为对网络请求，硬件活动等进行响应，或其他通过某些任务对其他应用程序的请求进行回应提供支持。守护进程也能够对硬件进行配置（如某些Linux系统上的devfsd），运行计划任务（例如cron），以及运行其他任务。
-
-在 DOS 环境中，此类应用程序被称为驻留程序（TSR）。在 Windows 系统中，由称为 Windows服务的应用程序来履行守护进程的职责。
-
-在原本的 Mac OS 系统中，此类应用程序被称为”extensions“。而作为 Unux-like 的 Mac OS X 有守护进程。
 
 ## 安装配置
 
@@ -153,17 +104,17 @@ $ sudo sh get-docker.sh --mirror Aliyun
 
 **解决 `WARNING: Your kernel does not support cgroup swap limit capabilities`：**
 
-1. 编辑 `/etc/default/grub` 文件
+1、编辑 `/etc/default/grub` 文件
 
-   ```shell
-   $ nano /etc/default/grub
-   ```
+```shell
+$ nano /etc/default/grub
+```
 
-2. 找到 `GRUB_CMDLINE_LINUX=` 配置项，并追加 `cgroup_enable=memory swapaccount=1`。
+2、找到 `GRUB_CMDLINE_LINUX=` 配置项，并追加 `cgroup_enable=memory swapaccount=1`。
 
-3.  保存文件后执行一下命令：`sudo update-grub`
+3、保存文件后执行一下命令：`sudo update-grub`
 
-4. 重启服务器：`reboot`
+4、重启服务器：`reboot`
 
 ### 测试 Docker 是否安装正确
 
@@ -171,12 +122,13 @@ $ sudo sh get-docker.sh --mirror Aliyun
 $ docker run hello-world
 ```
 
-执行以上命令，若能正常输出以下信息，则说明安装成功。
+<details>
+<summary>执行以上命令，若能正常输出信息，则说明安装成功。</summary>
 
-```
+```shell
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
-1b930d010525: Pull complete 
+1b930d010525: Pull complete
 Digest: sha256:f9dfddf63636d84ef479d645ab5885156ae030f611a56f3a7ac7f2fdd86d7e4e
 Status: Downloaded newer image for hello-world:latest
 
@@ -201,6 +153,7 @@ Share images, automate workflows, and more with a free Docker ID:
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
+</details>
 
 ### Docker Deamon 配置
 
@@ -226,7 +179,7 @@ $ systemctl daemon-reload
 $ systemctl restart docker.service
 ```
 
-## 使用Docker镜像
+## 使用 Docker 镜像
 
 ### 获取镜像
 
@@ -265,23 +218,23 @@ $ systemctl restart docker.service
 
 注意，过长的命令会被自动截断了，可以使用 `--no-trunc` 选项来输出完整命令。
 
-#### 删除镜像
+### 删除镜像
 
-1. 使用标签删除镜像
+1、使用标签删除镜像
 
-   > `docker rmi <IMAGE> [IMAGE...]` 或 `docker image rm <IMAGE> [IMAGE...]`
+> `docker rmi <IMAGE> [IMAGE...]` 或 `docker image rm <IMAGE> [IMAGE...]`
 
-2. 使用镜像 ID 来删除镜像
+2、使用镜像 ID 来删除镜像
 
-   > `docker rmi <IMAGE ID>`
+> `docker rmi <IMAGE ID>`
 
-   当使用 `docker rmi` 命令，并且后面跟上镜像的 ID（也可以是能进行区分的部分 ID 串前缀）时，会先尝试删除所有指向该镜像的标签，然后删除该镜像文件本身。
+当使用 `docker rmi` 命令，并且后面跟上镜像的 ID（也可以是能进行区分的部分 ID 串前缀）时，会先尝试删除所有指向该镜像的标签，然后删除该镜像文件本身。
 
-   > 注意，当有基于该镜像创建的容器时，镜像文件默认是无法被删除的。我们可以使用 `docker ps -a` 命令可以查看本机上存在的所有容器。
-   >
-   > 最佳实践：先用 `docker rm <Container ID>` 删除依赖该镜像的所有容易，然后执行 `docker rmi <IMAGE ID>` 再来删除镜像。
+> 注意，当有基于该镜像创建的容器时，镜像文件默认是无法被删除的。我们可以使用 `docker ps -a` 命令可以查看本机上存在的所有容器。
+>
+> 最佳实践：先用 `docker rm <Container ID>` 删除依赖该镜像的所有容器，然后执行 `docker rmi <IMAGE ID>` 再来删除镜像。
 
-#### 清理镜像
+### 清理镜像
 
 > `docker image prune [options]`
 >
@@ -292,15 +245,14 @@ $ systemctl restart docker.service
 
 我们可以结合 crontab 来定时清理，执行 `crontab -e`，写入一下配置：
 
-```
+```shell
 # 一定要记得在后面按 Enter 输入换行符，否则不会生效的
 59 23 * * * docker image prune -f
-
 ```
 
 ### 创建镜像
 
-#### 1. 基于已有容器创建
+#### 1、基于已有容器创建
 
 > `docker commit [OPTIONS] <CONTAINER> <REPOSITORY>[:TAG]`
 >
@@ -315,7 +267,7 @@ $ docker run -it alpine bash
 $ docker commit -m "install nano" -a "杨俊宁" ff3034d2ffa7 my-alpine:0.1
 ```
 
-#### 2. 基于 Dockerfile 创建
+#### 2、基于 Dockerfile 创建
 
 > `docker build -t <IMAGE NAME> <上下文路径/URL/->`
 
@@ -369,7 +321,7 @@ $ docker load -i alpine.tar
 - 添加新标签：`docker tag youngjuning/alpine:latest youngjuning/alpine:1.0.0`
 - 发布 1.0.0 版本：`docker push youngjuning/alpine:1.0.0`
 
-> 可以查看https://hub.docker.com/r/youngjuning/alpine项目查看我发布的基于aliyun镜像的 Aplpine Docker Image
+> 可以查看[youngjuning/alpine](https://hub.docker.com/r/youngjuning/alpine)项目查看我发布的基于aliyun镜像的 Aplpine Docker Image
 
 ## 操作 Docker 容器
 
@@ -378,7 +330,7 @@ $ docker load -i alpine.tar
 
 ### 启动容器
 
-#### 1. 新建并启动
+#### 1、新建并启动
 
 ```shell
 $ docker run -it ubuntu:18.04 /bin/bash
@@ -407,11 +359,11 @@ $ docker run -it ubuntu:18.04 /bin/bash
 - `-v [HOST-DIR:]<CONTAINER-DIR>[:OPTIONS]`，`--volume=[HOST-DIR:]<CONTAINER-DIR>[:OPTIONS]`：挂在主机上的文件卷到容器内
 - `--name=""`：指定容器的别名
 
-#### 2. 启动已终止容器
+#### 2、启动已终止容器
 
 可以利用 `docker start <CONTAINER ID>` 命令，直接将一个已经终止的容器启动运行。
 
-#### 3. 查看容器输出
+#### 3、查看容器输出
 
 要获取容器的输出信息，可以通过 `docker <CONTAINER ID> logs` 命令。
 
@@ -470,19 +422,19 @@ $ docker import http://example.com/exampleimage.tgz example/imagerepo
 
 ### 查看容器
 
-#### 1. 查看容器详情
+#### 查看容器详情
 
 ```shell
 $ docker inspect [OPTIONS] <CONTAINER ID>
 ```
 
-#### 2. 查看容器内进程
+#### 查看容器内进程
 
 ```shell
 $ docker top [OPTIONS] <CONTAINER ID>
 ```
 
-#### 3. 查看统计信息
+#### 查看统计信息
 
 ```shell
 $ docker stats [OPTIONS] <CONTAINER ID>
@@ -551,7 +503,7 @@ server {
 - 对 `数据卷` 的更新，不会影响镜像
 - `数据卷` 默认会一直存在，即使容器被删除
 
-### 1. 创建数据卷
+### 创建数据卷
 
 ```shell
 $ docker volume create my-vol
@@ -559,7 +511,7 @@ $ docker volume create my-vol
 
 除了 `create` 子命令外，docker volume 还支持 `inspect`(查看详细信息)、`ls`（列出已有数据卷）、`prune`（清理无用数据卷）、`rm`（删除数据卷）
 
-### 2. 绑定数据卷
+### 绑定数据卷
 
 #### `--mount`
 
@@ -591,13 +543,11 @@ $ docker run -d -P \
 
 ![](https://i.loli.net/2020/04/11/hmlMV4QA2opON9j.png)
 
-# 应用安装
+## 应用安装
 
-## GitLab 及其官方镜像
+### GitLab 及其官方镜像
 
-> 特别耗CPU，我的服务器太辣鸡带不动！！！
-
-### docker-compose.yml
+#### docker-compose.yml
 
 ```yaml
 web:
@@ -617,18 +567,82 @@ web:
     - 'gitlab_data:/var/opt/gitlab'
 ```
 
-### 运行容器
+#### 运行容器
 
 ```
 $ docker-compose up -d
 ```
 
-### 更新 gitlab
+#### 更新 gitlab
 
 ```shell
 $ docker-compose pull
 $ docker-compose up -d
 ```
+
+## Docker 相关的定时任务
+
+```
+# crontab -e
+# 每天凌晨强制删除无用镜像，不光是临时镜像；每天凌晨清理无用的数据卷
+00 00 * * * docker image prune -af && docker volume prune -f && rsync -arv /var/lib/docker/volumes /backups/docker
+```
+
+> qshell 同步文件到七牛云的配置请参考[备份到七牛云](https://juejin.im/post/5e81e2db518825737b4ad911#heading-59)
+
+## 概念
+
+### DevOps
+
+DevOps（**Dev**elopment和**Op**erations的组合词）是一种重视软件开发人员（Dev）和IT运维技术人员（Ops）之间沟通合作的文化、运动或惯例。透过自动化“软件交付”和“架构变更”的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。
+
+DevOps 的引入能对产品交付、[测试](https://zh.wikipedia.org/wiki/测试)、功能开发和[维护](https://zh.wikipedia.org/wiki/軟體維護)（包括曾经罕见但如今已屡见不鲜的“[热补丁](https://zh.wikipedia.org/wiki/Hot_fix)”）起到意义深远的影响。在缺乏 DevOps 能力的组织中，开发与运营之间存在着信息“鸿沟”。例如运营人员要求更好的可靠性和安全性，开发人员则希望[基础设施](https://zh.wikipedia.org/wiki/基础设施)响应更快，而业务用户的需求则是更快地将更多的特性发布给最终用户使用。这种信息鸿沟就是最常出问题的地方。
+
+### 虚拟化
+
+在计算机技术中，虚拟化是一种资源管理技术，是将计算机中的各种实体资源，如服务器、网络、内存及存储等，予以抽象、转换后呈现出来，打破实体结构间的不可切割的障碍，使用户可以用比原来的组态更好的方式来应用这些资源。
+
+### 容器
+
+容器有效地将由单个操作系统管理的资源划分到孤立的组中，以更好地在孤立的组之间平衡有冲突的资源使用需求。与虚拟化相比，这样既不需要指令级模拟，也不需要即时编译。容器可以在核心 CPU 本地运行指令，而不需要任何专门的解释机制。此外，也避免了准虚拟化（para-virtualization）和系统调用替换中的复杂性。
+
+### 分层存储
+
+因为镜像包含操作系统完整的 `root` 文件系统，其体积往往是庞大的，因此在 Docker 设计时，就充分利用 [Union FS](https://en.wikipedia.org/wiki/Union_mount) 的技术，将其设计为分层存储的架构。所以严格来说，镜像并非是像一个 ISO 那样的打包文件，镜像只是一个虚拟的概念，其实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。
+
+镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生改变，后一层上的任何改变只发生在自己这一层。比如，删除前一层文件的操作，实际不是真的删除前一层的文件，而是仅在当前层标记为该文件已删除。在最终容器运行的时候，虽然不会看到这个文件，但是实际上该文件会一直跟随镜像。因此，在构建镜像的时候，需要额外小心，每一层尽量只包含该层需要添加的东西，任何额外的东西应该在该层构建结束前清理掉。
+
+分层存储的特征还使得镜像的复用、定制变的更为容易。甚至可以用之前构建好的镜像作为基础层，然后进一步添加新的层，以定制自己所需的内容，构建新的镜像。
+
+### 守护进程 daemon
+
+在一个多任务的电脑操作系统中，守护进程（daemon）是一种在后台执行的电脑程序。此类程序会被以进程的形式初始化。守护进程程序的名称通常以字母”d“结尾：例如，`syslogd` 就是指管理系统日志的守护进程。
+
+通常，守护进程没有任何存在的父进程（即PPID=1），且在 UNIX 系统进程层级中直接位于 init 之下。守护进程程序通常通过如下方法是自己成为守护进程：对一个子进程进行 fork，然后使其父进程立即终止，使得这个子进程能在 init 下运行。这种方法通常被称为”脱壳“。
+
+系统通常在启动时一同引导守护进程。守护进程为对网络请求，硬件活动等进行响应，或其他通过某些任务对其他应用程序的请求进行回应提供支持。守护进程也能够对硬件进行配置（如某些Linux系统上的devfsd），运行计划任务（例如cron），以及运行其他任务。
+
+在 DOS 环境中，此类应用程序被称为驻留程序（TSR）。在 Windows 系统中，由称为 Windows服务的应用程序来履行守护进程的职责。
+
+在原本的 Mac OS 系统中，此类应用程序被称为”extensions“。而作为 Unux-like 的 Mac OS X 有守护进程。
+
+### Docker 与虚拟机比较
+
+| 特性       | 容器               | 虚拟机      |
+| ---------- | ------------------ | ----------- |
+| 启动       | 秒级               | 分钟级      |
+| 硬盘使用   | 一般为 `MB`        | 一般为 `GB` |
+| 性能       | 接近原生           | 弱于        |
+| 系统支持量 | 单机支持上千个容器 | 一般几十个  |
+
+如下图，虚拟机是在硬件层面实现虚拟化，需要额外的虚拟机管理应用和虚拟机操作系统层。Docker容器是在操作系统层面上实现虚拟化，直接复用本地主机的操作系统，因此更加轻量级。
+
+![](https://i.loli.net/2020/03/31/mZiyHL2kGAgrMFx.png)
+
+## 扩展阅读
+
+- [DevOps 知识平台 Ledge](https://devops.phodal.com/)
+- [jenkins+docker 持续集成](https://juejin.im/post/5b6af759e51d451951138eb4#heading-7)
 
 ## 待实践
 
@@ -642,23 +656,12 @@ $ docker-compose up -d
 - code-push-server
 - BugOut
 
-# Docker 相关的定时任务
+## Catch Me
 
-```
-# crontab -e
-# 每天凌晨强制删除无用镜像，不光是临时镜像；每天凌晨清理无用的数据卷
-00 00 * * * docker image prune -af && docker volume prune -f && rsync -arv /var/lib/docker/volumes /backups/docker
-```
+> GitHub: [youngjuning](https://github.com/youngjuning) | 微信: `yang_jun_ning` | 公众号: `前端早茶馆` | 邮箱: youngjuning@aliyun.com
 
-> qshell 同步文件到七牛云的配置请参考[备份到七牛云](https://juejin.im/post/5e81e2db518825737b4ad911#heading-59)
-
-# 扩展阅读
-
-- [DevOps 知识平台 Ledge](https://devops.phodal.com/)
-- [jenkins+docker 持续集成](https://juejin.im/post/5b6af759e51d451951138eb4#heading-7)
-
-# 联系作者
-
-|                           作者微信                           |                           知识星球                           |                           赞赏作者                           |
+|                             微信                             |                             投食                             |                            公众号                            |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="https://user-gold-cdn.xitu.io/2020/2/24/17074acbb24c7412?w=200&h=200&f=jpeg&s=17183" style="width:200px"/> | <img src="https://user-gold-cdn.xitu.io/2020/2/24/17074acbb26af8e1?w=200&h=200&f=png&s=39093" style="width:200px"/> | <img src="https://user-gold-cdn.xitu.io/2020/2/24/17074acbb338c643?w=698&h=700&f=png&s=315492" style="width:200px"/> |
+| <img src="https://i.loli.net/2020/02/22/q2tLiGYvhIxm3Fl.jpg" width="200px"/> | <img src="https://i.loli.net/2020/02/23/q56X1eYZuITQpsj.png" width="200px"/> | <img src="https://i.loli.net/2020/07/28/6AyutjZ1XI4aUDV.jpg" width="200px"/> |
+
+本文首发于[杨俊宁的博客](https://youngjuning.js.org/)，创作不易，您的点赞👍是我坚持的动力！！！

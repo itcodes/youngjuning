@@ -12,7 +12,6 @@ tags:
 
 <!--more-->
 
-
 ## ohmyzsh
 
 ```sh
@@ -460,6 +459,100 @@ set global validate_password.length=4;
 $ mysql -u root -p
 ```
 
+## mongodb
+
+> 参考: [Mac OSX 平台安装 MongoDB](https://www.runoob.com/mongodb/mongodb-osx-install.html)、[Mac下安装MongoDB数据库-启动-停止-开启验证-登陆](https://www.32e.top/system/mac/article-87.html)、[【环境搭建：二】Mac安装、配置MongoDB](https://uizph.com/article/5db177e4a9f13d7f535810c5)、[MongoDB的用户创建更新及删除](https://www.jianshu.com/p/f5afc6488f9e)、[MongoDB 用户名密码登录 认证登陆](https://cloud.tencent.com/developer/article/1446551)
+
+### 下载安装
+
+```sh
+$ brew install mongodb/brew/mongodb-community
+$ mongod -version
+```
+
+### 配置
+
+#### 启动 mongo
+
+1、新建 dbpath
+
+```sh
+$ sudo mkdir ~/data/db
+$ sudo mkdir ~/data/log
+```
+
+2、启动
+
+```sh
+$ sudo mongod --dbpath ~/data/db --fork --logpath ~/data/log/mongo.log
+```
+
+> 注意：Mac OS 10.15.1版本之后， `/data/db` 文件夹消失了，重新创建文件夹提示 `mkdir: /data/db: Read-only file system`，解决办法也可以是 `sudo mkdir ~/data/db && sudo mongodb --dbpath ~/data/db`
+
+#### 设置验证和用户名密码
+
+```sh
+$ mongo
+# 创建超级管理员
+> db.createUser({ user: "root" , pwd: "123456", roles: ["root"]});
+Successfully added user: {
+   "user" : "root",
+   "roles" : ["root"]
+}
+# 尝试使用上面创建的用户信息进行连接。
+> db.auth("root","123456")
+1
+# 创建一个名为 admin，密码为 123456 的用户。
+> db.createUser({ user: "admin", pwd: "123456", roles:["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]});
+Successfully added user: {
+   "user": "admin",
+   "roles": [
+   {
+      "role": "userAdminAnyDatabase",
+      "db": "admin"
+   }
+  ]
+}
+# 尝试使用上面创建的用户信息进行连接。
+> db.auth("admin","123456")
+1
+```
+
+### 开启验证模式登录
+
+开启 mongod 时，指定 `--auth` 参数即可以验证模式打开：
+
+```sh
+$ sudo mongod --dbpath ~/data/db --fork --logpath ~/data/log/mongo.log --auth
+```
+
+#### 登录时验证
+
+```shell
+$ mongo 127.0.0.1:27017/admin -u admin -p 123456
+# 等价于
+$ mongo --port 27017 -u "adminUser" -p "adminPass" --authenticationDatabase "admin"
+```
+
+#### 登录后验证
+
+```shell
+$ mongo
+> use admin
+> ab.auth("admin","123456")
+```
+
+### 退出mongo
+
+```sh
+#先停止mongod服务
+$ use admin;
+$ db.shutdownServer();
+
+然后退出mongo
+$exit；
+```
+
 ## natapp
 
 开启您的内网穿透之旅,调试微信的利器，请至[官网](https://natapp.cn/)下载
@@ -484,8 +577,12 @@ $ ssh-keygen -t rsa -C "young_email@aliyun.com"
 
 [![](https://i.loli.net/2020/03/26/vGRUVX5ACxfasTi.png)](https://pock.dev/)
 
-## 联系作者
+## Catch Me
 
-|                           作者微信                           |                           知识星球                           |                           赞赏作者                           |
+> GitHub: [youngjuning](https://github.com/youngjuning) | 微信: `yang_jun_ning` | 公众号: `前端早茶馆` | 邮箱: youngjuning@aliyun.com
+
+|                             微信                             |                             投食                             |                            公众号                            |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="https://user-gold-cdn.xitu.io/2020/2/24/17074acbb24c7412?w=200&h=200&f=jpeg&s=17183" style="width:200px"/> | <img src="https://user-gold-cdn.xitu.io/2020/2/24/17074acbb26af8e1?w=200&h=200&f=png&s=39093" style="width:200px"/> | <img src="https://user-gold-cdn.xitu.io/2020/2/24/17074acbb338c643?w=698&h=700&f=png&s=315492" style="width:200px"/> |
+| <img src="https://i.loli.net/2020/02/22/q2tLiGYvhIxm3Fl.jpg" width="200px"/> | <img src="https://i.loli.net/2020/02/23/q56X1eYZuITQpsj.png" width="200px"/> | <img src="https://i.loli.net/2020/07/28/6AyutjZ1XI4aUDV.jpg" width="200px"/> |
+
+本文首发于[杨俊宁的博客](https://youngjuning.js.org/)，创作不易，您的点赞👍是我坚持的动力！！！
