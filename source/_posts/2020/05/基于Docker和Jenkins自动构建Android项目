@@ -1,3 +1,12 @@
+---
+title: 基于Docker和Jenkins自动构建Android项目
+date: 2020-05-08 19:16:43
+categories:
+  - [运维,Jenkins]
+tags:
+  - android
+---
+
 ## 环境准备
 
 - [Docker](https://juejin.im/post/6844904111243001869#heading-11)
