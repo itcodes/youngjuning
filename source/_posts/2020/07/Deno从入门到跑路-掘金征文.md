@@ -364,7 +364,8 @@ $ deno run --allow-net fetch.ts
 你可以直接导入它，然后就可以使用和它同级目录的`.env` 文件：
 
 ```ts
-import "https://deno.land/x/denv/mod.ts";
+import { load } from "https://deno.land/x/denv/mod.ts";
+await load();
 console.log(Deno.env.get("HOME"));  // e.g. outputs "/home/alice"
 console.log(Deno.env.get("MADE_UP_VAR"));  // outputs "Undefined"
 ```
