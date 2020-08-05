@@ -92,7 +92,7 @@ for await (const req of s) {
 
 > 注意：如果 localhost 请求失败，请使用 ip 的形式。4090ok
 
-<img src="https://i.loli.net/2020/07/30/ibwyIrKvjJld5GQ.png" style="zoom:25%;" />
+<img src="https://i.loli.net/2020/07/30/ibwyIrKvjJld5GQ.png" />
 
 ## 技术选型
 
@@ -183,7 +183,7 @@ await app.listen({ port: 8889 });
 与 std/http 高度兼容：
 
 ```ts
-import { createApp } from "./deps.ts";
+import { createApp } from "https://servestjs.org/@v1.1.1/mod.ts";
 const app = createApp();
 app.handle("/", async (req) => {
   await req.respond({
