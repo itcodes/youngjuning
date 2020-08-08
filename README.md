@@ -18,6 +18,6 @@ https://github.com/anuraghazra/github-readme-stats
 
 - 🔭 I’m currently working on React
 - 🌱 I’m currently learning Vue、Java、Flutter
-- 👯 I’m looking to collaborate on [bitchon](https://github.com/bitchon)
+- 👯 I’m active on [掘金](https://juejin.im/user/325111174662855)
 - 💬 Ask me about React Native
 - 📫 How to reach me: youngjuning@aliyun.com
