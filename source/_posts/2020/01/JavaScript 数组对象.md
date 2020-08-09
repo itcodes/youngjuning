@@ -2,7 +2,7 @@
 title: JavaScript 数组对象
 date: 2020-01-30 20:38:39
 categories:
-  - [前端开发, JavaScript]
+  - [前端, JavaScript]
 tags:
   - 指南
   - 笔记

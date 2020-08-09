@@ -2,7 +2,7 @@
 title: 微精通之Vue移动端开发【持续更新】
 date: 2020-07-13 15:37:03
 categories:
-	- [前端开发,Vue]
+	- [前端,Vue]
 tags:
 	- vant
 	- 微精通

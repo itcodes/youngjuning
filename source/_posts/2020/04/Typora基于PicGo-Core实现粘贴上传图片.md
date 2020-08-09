@@ -8,6 +8,10 @@ tags:
   - markdown
 ---
 
+![](https://i.loli.net/2020/08/09/5lO27zCE4DbraV9.png)
+
+<!--more-->
+
 ## 下载 PicGo-Core
 
 ```sh
@@ -61,4 +65,3 @@ windows 则为`C:\Users\你的用户名/.picgo\config.json`。
 
 - [Picgo-Core](https://picgo.github.io/PicGo-Core-Doc/zh/guide/config.html#%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
 - [Typora Upload Image](https://support.typora.io/Upload-Image/)
-

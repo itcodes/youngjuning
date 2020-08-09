@@ -2,7 +2,7 @@
 title: antd开发技巧
 date: 2020-06-05 16:59:43
 categories:
-  - [前端开发,React]
+  - [前端,React]
 tags:
   - antd
 ---

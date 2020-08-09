@@ -3,7 +3,7 @@ title: React必知必会
 date: 2020-07-20 16:11:35
 categories:
 
-  - [前端开发,React]
+  - [前端,React]
 tags:
   - 必知必会
 ---

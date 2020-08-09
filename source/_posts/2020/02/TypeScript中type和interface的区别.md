@@ -2,7 +2,7 @@
 title: TypeScript中type和interface的区别
 date: 2020-02-19 01:26:43
 categories:
-  - [前端开发, TypeScript]
+  - [前端, TypeScript]
 tags:
 ---
 

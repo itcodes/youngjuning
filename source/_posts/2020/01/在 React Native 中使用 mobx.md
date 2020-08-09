@@ -2,7 +2,7 @@
 title: 在 React Native 中使用 mobx
 date: 2020-01-29 20:46:38
 categories:
-  - [前端开发, JavaScript]
+  - [前端, JavaScript]
   - [移动开发, React Native]
 tags:
   - mobx

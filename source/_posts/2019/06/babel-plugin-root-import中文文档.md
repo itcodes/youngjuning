@@ -1,7 +1,7 @@
 ---
 title: babel-plugin-root-import中文文档
 categories:
-  - [前端开发, Babel]
+  - [前端, Babel]
 tags:
   - 翻译
 mp3:

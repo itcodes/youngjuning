@@ -2,7 +2,7 @@
 title: 手写代码之手写bind
 date: 2020-02-19 15:28:58
 categories:
-  - [前端开发, JavaScript]
+  - [前端, JavaScript]
 tags:
   - 手写代码
 ---

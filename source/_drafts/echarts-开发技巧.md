@@ -2,7 +2,7 @@
 title: echarts 开发技巧
 date: 2020-06-05 14:05:24
 categories:
-  - [前端开发,可视化]
+  - [前端,可视化]
 tags:
   - echarts
 ---

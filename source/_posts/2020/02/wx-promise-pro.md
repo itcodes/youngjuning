@@ -2,7 +2,7 @@
 title: wx-promise-pro
 date: 2020-02-18 21:57:59
 categories:
-  - [前端&移动, 小程序]
+  - [前端, 小程序]
 tags:
   - 微信小程序
   - promise

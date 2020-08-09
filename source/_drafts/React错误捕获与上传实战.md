@@ -2,7 +2,7 @@
 title: React错误捕获与上传实战
 date: 2020-07-24 17:16:44
 categories:
-  - [前端开发,React]
+  - [前端,React]
 tags:
 ---
 

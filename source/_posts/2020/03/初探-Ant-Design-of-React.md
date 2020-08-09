@@ -2,7 +2,7 @@
 title: 初探 Ant Design of React
 date: 2020-03-04 04:17:10
 categories:
-  - [前端开发, React]
+  - [前端, React]
 tags:
   - antd
   - UI框架

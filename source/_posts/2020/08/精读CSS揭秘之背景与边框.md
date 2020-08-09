@@ -2,7 +2,7 @@
 title: 精读CSS揭秘之背景与边框
 date: 2020-08-06 08:30:35
 categories:
-  - [前端开发,CSS]
+  - [前端,CSS]
 tags:
   - CSS3
 ---

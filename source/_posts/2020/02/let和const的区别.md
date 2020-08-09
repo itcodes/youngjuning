@@ -2,7 +2,7 @@
 title: let和const的区别
 date: 2020-02-07 18:49:11
 categories:
-  - [前端开发, JavaScript]
+  - [前端, JavaScript]
 tags:
   - ES6
 ---

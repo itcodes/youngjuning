@@ -2,7 +2,7 @@
 title: CSS中的居中操作
 date: 2020-06-03 13:35:13
 categories:
-  - [前端开发,CSS]
+  - [前端,CSS]
 tags:
 ---
 
