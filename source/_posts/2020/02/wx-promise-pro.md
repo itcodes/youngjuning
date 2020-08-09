@@ -11,8 +11,6 @@ tags:
 
 ✨强大、优雅的小程序异步库🚀 小程序promise
 
-[![NPM](https://user-gold-cdn.xitu.io/2020/2/18/1705883821e962d8?w=297&h=45&f=png&s=3701)](https://nodei.co/npm/wx-promise-pro/)
-
 <!--more-->
 
 ## 优势
