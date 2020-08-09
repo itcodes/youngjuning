@@ -7,6 +7,10 @@ tags:
   - android
 ---
 
+![](https://i.loli.net/2020/08/09/M9PfYQahL2F5Z8C.png)
+
+<!--more-->
+
 ## 环境准备
 
 - [Docker](https://juejin.im/post/6844904111243001869#heading-11)
