@@ -2,7 +2,7 @@
 title: Deno从入门到跑路 | 掘金征文
 date: 2020-07-26 16:30:25
 categories:
-  - [前端开发]
+  - [Deno]
 tags:
   - deno
 ---
