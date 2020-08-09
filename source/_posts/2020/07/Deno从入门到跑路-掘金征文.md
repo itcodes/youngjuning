@@ -2,9 +2,10 @@
 title: Deno从入门到跑路 | 掘金征文
 date: 2020-07-26 16:30:25
 categories:
-  - [Deno]
+  - [后端,Deno]
 tags:
-  - deno
+  - Deno
+  - 掘金专栏
 ---
 
 ![](https://i.loli.net/2020/07/27/4ltXAYazmVvgWfZ.png)

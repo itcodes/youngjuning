@@ -1,6 +1,6 @@
 ---
 title: 【译】在 React Native TypeScript 项目中使用 defaultProps
-date: 2019-06-03 15:55:52
+date: 2020-08-10 01:23:52
 categories:
   - [移动开发, React Native]
 tags:
@@ -9,6 +9,8 @@ tags:
   - TypeScript
   - 掘金专栏
 ---
+
+![](https://i.loli.net/2020/08/10/aK152TMsqfjJlbZ.png)
 
 随着时间的推移，TypeScript 已经改进了 `defaultProps` 相关的类型检查。本文将讲述最新的用法和旧版本中的用法以及一些问题。[原文](http://t.cn/Ai9MK5r1)
 
@@ -76,7 +78,7 @@ export default class MyComponent extends React.Component<Props, {}> {
 ### 注意
 
 - 因为 TypeScript 在检查 JSX 属性时只考虑了 props，你必须把有默认值的 props 标记为可选的
-- 当使用 `strictNullChecks`时，`this.props.foo` 的值可能会是 `undefined`。你可以使用非空断言（例如 `this.props.foo!`）或者类型守护（例如 `if (this.props.foo) {...}`）来移除 `undefined`。这是非常恼人的，因为实际上它是有默认值，所以绝对不会是 `undefined`，但是 TS 并不理解这个逻辑。这也是 TS 3.0 专门支持 `defaultProps` 的主要原因之一。
+- 当使用 `strictNullChecks` 时，`this.props.foo` 的值可能会是 `undefined`。你可以使用非空断言（例如 `this.props.foo!`）或者类型守护（例如 `if (this.props.foo) {...}`）来移除 `undefined`。这是非常恼人的，因为实际上它是有默认值，所以绝对不会是 `undefined`，但是 TS 并不理解这个逻辑。这也是 TS 3.0 专门支持 `defaultProps` 的主要原因之一。
 
 ## 函数组件的 defaultProps
 

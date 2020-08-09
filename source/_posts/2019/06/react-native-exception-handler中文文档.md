@@ -1,12 +1,12 @@
 ---
 title: react-native-exception-handler 中文文档
+date: 2019-06-11 14:20:44
 categories:
-  - [移动开发, React Native]
+  - [跨平台, React Native]
 tags:
   - [exception]
   - [error]
   - [翻译]
-date: 2019-06-11 14:20:44
 ---
 
 # react-native-exception-handler ![npm](https://img.shields.io/npm/dm/react-native-exception-handler.svg)

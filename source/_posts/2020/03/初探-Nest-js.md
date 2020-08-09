@@ -2,10 +2,11 @@
 title: 初探 Nest.js
 date: 2020-03-02 04:05:36
 categories:
-  - [Node.js]
+  - [后端,Node.js]
 tags:
   - Nest.js
   - server
+  - 掘金专栏
 ---
 
 ![](https://i.loli.net/2020/03/02/GwX6NzRqa85bLhT.png)

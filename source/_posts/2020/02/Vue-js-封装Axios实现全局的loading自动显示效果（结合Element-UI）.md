@@ -2,7 +2,7 @@
 title: Vue.js - 封装Axios实现全局的loading自动显示效果（结合Element UI）
 date: 2020-02-20 17:26:54
 categories:
-  - [前端, Vue.js]
+  - [前端, Vue]
 tags:
   - 转载
 ---

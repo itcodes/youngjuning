@@ -2,9 +2,10 @@
 title: 装它|再也不用操心ESLint配置
 date: 2020-07-24 07:33:15
 categories:
- - [前端开发]
+ - [前端]
 tags:
- - [ESLint]
+ - ESLint
+ - 掘金专栏
 ---
 
 ![](https://i.loli.net/2020/07/24/aGtwAFpOXledCUc.png)

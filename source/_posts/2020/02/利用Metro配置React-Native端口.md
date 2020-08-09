@@ -2,7 +2,7 @@
 title: 利用Metro配置React Native端口
 date: 2020-02-25 16:02:10
 categories:
-  - [移动开发, React Native]
+  - [跨平台, React Native]
 tags:
   - metro
 ---

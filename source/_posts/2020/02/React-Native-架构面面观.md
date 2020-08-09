@@ -2,7 +2,7 @@
 title: React Native 架构面面观
 date: 2020-02-23 17:26:09
 categories:
-  - [移动开发, React Native]
+  - [跨平台, React Native]
 tags:
   - 架构
   - 最佳实践

@@ -2,7 +2,7 @@
 title: React Native 安卓必知必会
 date: 2020-02-20 14:57:55
 categories:
-  - [移动开发, React Native]
+  - [跨平台, React Native]
 tags:
   - 安卓
 ---

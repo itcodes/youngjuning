@@ -6,6 +6,7 @@ categories:
 tags:
 	- vant
 	- 微精通
+	- 掘金专栏
 ---
 
 [![](https://i.loli.net/2020/07/13/B1Hlcn3iazQ9fxs.png)](https://mubu.com/doc/7ZqGKUzpwrH)

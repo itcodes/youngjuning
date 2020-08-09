@@ -2,7 +2,7 @@
 title: 使用Docker安装配置Jenkins
 date: 2020-05-08 18:16:43
 categories:
-  - [运维&测试,Jenkins]
+  - [运维,Jenkins]
 tags:
   - android
 ---

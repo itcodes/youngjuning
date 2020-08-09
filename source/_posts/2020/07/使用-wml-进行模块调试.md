@@ -2,7 +2,7 @@
 title: 使用 wml 进行模块调试
 date: 2020-07-10 16:15:07
 categories:
-	- [教程]
+	- [前端]
 tags:
 	- vant
 	- 微精通

@@ -2,7 +2,7 @@
 title: 玩转 React Native 自定义字体
 date: 2020-02-29 16:52:39
 categories:
-  - [移动开发,React Native]
+  - [跨平台,React Native]
 tags:
   - 字体
   - fonts
@@ -26,7 +26,7 @@ tags:
 
 3. 将字体放到放在项目根目录：
 
-   
+
 
 4. 在根目录新建 `react-naitve.config.js`:
 

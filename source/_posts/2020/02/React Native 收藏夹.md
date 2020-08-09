@@ -2,7 +2,7 @@
 title: React Native 收藏夹
 date: 2020-02-14 15:36:00
 categories:
-  - [移动开发, React Native]
+  - [跨平台, React Native]
 tags:
   - 收藏夹
 ---

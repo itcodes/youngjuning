@@ -2,7 +2,7 @@
 title: React Native 集成 CodePush 指南
 date: 2020-02-25 17:08:43
 categories:
-  - [移动开发, React Native]
+  - [跨平台, React Native]
 tags:
   - 架构
   - 最佳实践
