@@ -1,7 +1,6 @@
 ---
 title: React Native 收藏夹
 date: 2020-02-14 15:36:00
-sticky: 1
 categories:
   - [移动开发, React Native]
 tags:
