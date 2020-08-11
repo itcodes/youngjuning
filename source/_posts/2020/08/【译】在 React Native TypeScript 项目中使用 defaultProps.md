@@ -2,7 +2,7 @@
 title: 【译】在 React Native TypeScript 项目中使用 defaultProps
 date: 2020-08-10 01:23:52
 categories:
-  - [移动开发, React Native]
+  - [跨平台, React Native]
 tags:
   - 翻译
   - defaultProps
