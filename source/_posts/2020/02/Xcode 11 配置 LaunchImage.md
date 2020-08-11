@@ -2,7 +2,7 @@
 title: Xcode 11 配置 LaunchImage
 date: 2020-02-21 13:19:26
 categories:
-  - [移动开发, ios]
+  - [移动端, ios]
 tags:
   - LaunchImage
   - 启动图

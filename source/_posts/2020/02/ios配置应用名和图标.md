@@ -2,7 +2,7 @@
 title: ios配置应用名和图标
 date: 2020-02-21 15:28:28
 categories:
-  - [移动开发, ios]
+  - [移动端,ios]
 tags:
   - ios
 ---
