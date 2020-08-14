@@ -17,9 +17,9 @@ tags:
 
 2018年的某一天，我问公司后端架构师说我想学学后端语言，除了Java有啥推荐，他告诉我他在学Go。然后跟我讲了一些诸如分布式、协程、大数据、爬虫......巴拉巴拉的我也听不太懂的概念。然后我说我还是学NodeJs吧。
 
-![](https://i.loli.net/2020/08/13/cVomW7L9YOTw2uA.png)
+![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/386ee7328c5b451a93924c671f858269~tplv-k3u1fbpfcp-zoom-1.image)
 
-之所以斗胆再战Go语言，完全是梁静茹（[上次征文](https://juejin.im/post/6854573219266887694)）给了我勇气。如果你是后端大佬，直接看末尾的爬虫部分就可以。
+之所以斗胆再战Go语言，完全是梁静茹（[上次征文](https://juejin.im/post/6854573219266887694)）给了我勇气。如果你是后端大佬，直接看后半篇的爬虫部分就可以。
 
 本文的主题是极速、爬虫、掘金专栏，目的是使用Go写一个小工具把掘金专栏文章爬取下来，慢慢看。
 
@@ -36,12 +36,9 @@ tags:
 
 ### 趋势
 
-权威的趋势，优弧大佬已经讲的很清楚了，我这里补充一下GitHub的star趋势和行业薪资:
+权威的趋势，优弧大佬已经讲的很清楚了，我这里补充一下GitHub的star趋势:
 
-<div style="display:flex;justify-content:space-between">
-	<img src="https://i.loli.net/2020/08/13/ZYijG4BOe2rxXMT.png" style="zoom:35%;" />
-  <img src="https://i.loli.net/2020/08/13/FjxKWmUR354H8Ea.png" style="zoom:35%;" />
-</div>
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2f1ea4ca5a4d457c8e93e07372b88e28~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## Go简介
 
@@ -65,7 +62,7 @@ Go是Google开发的一种静态强类型、编译型、并发型并具有垃圾
 $ brew install go
 ```
 
-![](https://i.loli.net/2020/08/13/co5mg3QNti1UPur.png)
+![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0ac7ef0acc5b4d2480c802d586f3ae44~tplv-k3u1fbpfcp-zoom-1.image)
 
 > 小技巧1：`ctrl+c` 可以跳过 `Updating Homebrew...`，要不卡到你怀疑人生。
 
@@ -210,7 +207,7 @@ func sayHello(juejin string) string {
 
 简单来说就是把目标网页下载下来，然后通过解析、过滤、去重等一系列操作获得自己想要的数据并以相应的格式保存下来。大致流程如下图：
 
-![](https://i.loli.net/2020/08/13/f1ODv42eWHjo3yq.png)
+![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb67f112c5234a97b12eb690ab58435f~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## colloy极速上手
 
@@ -489,11 +486,33 @@ GO语言中不支持使用`~`号代表家目录，经过一番折腾，找到这
 os.Getenv("HOME")
 ```
 
+### 获取图片
+
+测试脚本的时候发现有图片的文章，图片都丢失了，这怎么行，没有图片的文章是没有灵魂的。分析的结果是掘金的图片是懒加载的，标签大概长这样：
+
+```html
+<img class="lazyload inited loaded" data-src="https://i.loli.net/2020/08/13/cVomW7L9YOTw2uA.png" data-width="800" data-height="600" src="https://i.loli.net/2020/08/13/cVomW7L9YOTw2uA.png">
+```
+
+我盲猜是这个`data-`属性的问题，遂在脚本中加入了下面的代码将`data-`删掉：
+
+```go
+...
+reg := regexp.MustCompile(`data-`)
+		html, _ := e.DOM.Html()
+		markdown := convertHTMLToMarkdown(reg.ReplaceAllString(html, ""))
+...
+```
+
+[youngjuning/homebrew-juejin-spider@0.1.0](https://github.com/youngjuning/homebrew-juejin-spider/releases/tag/v0.1.0) 已经发布，可以完美地抓取掘金专栏啦。
+
 ### 成品
 
 > 代码太长，源码在这里 》》》[https://github.com/youngjuning/juejin-spider](https://github.com/youngjuning/juejin-spider)《《《，都读到这里了，给个star呗。
 
 ## 打包并使用Homebrew发布脚本
+
+黑客是要有追求的，不可能做个玩具出来。而且Go本身就是运行起来不靠任何依赖和环境，我不能要求使用工具的人还得装个go的环境。我第一个想到的就是将我的脚本发到Homebrew，谢天谢地，[使用HomeBrew发布脚本](https://www.jianshu.com/p/e88831aac62a) 详细地讲解了这个过程。
 
 ### 1、打包成可执行文件
 
@@ -503,23 +522,23 @@ $ go build juejin.go
 
 会在当前目录下生成一个叫 juejin 的可执行文件，`./juejin` 是可以执行的，也可以使用`go build -o=/usr/local/bin juejin.go` 或 `go build -o=$GOPATH/bin/ juejin.go` 放到已经注册的系统路径中。
 
-> 黑客是要有追求的，不可能做个玩具出来。而且Go本身就是运行起来不靠任何依赖和环境，我不能要求使用工具的人还得装个go的环境。我第一个想到的就是将我的脚本发到Homebrew，谢天谢地，[使用HomeBrew发布脚本](https://www.jianshu.com/p/e88831aac62a) 详细地讲解了这个过程。
-
 ### 2、将可执行文件打包成 tar.gz 的格式
 
 ```shell
 $ tar zcvf juejin_0.0.1.tar.gz juejin
 ```
 
-![](https://i.loli.net/2020/08/14/u4ZWeM1UlIqALzH.png)
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f64f139d9578418fa7eaae6a33191266~tplv-k3u1fbpfcp-zoom-1.image)
 
-### 3、使用 `brew create <git-url>` 创建药方
+上传到git，供配方软连接到这个脚本文件。
+
+### 3、使用 `brew create <git-url> --tab user/repo` 创建药方
 
 ```sh
-$ brew create https://github.com/youngjuning/homebrew-juejin-spider/raw/master/juejin_0.0.1.tar.gz
+$ brew create \
+    https://github.com/youngjuning/homebrew-juejin-spider/raw/master/juejin_0.0.1.tar.gz \
+    --tap youngjuning/homebrew-juejin-spider
 ```
-
-> 注意，这里因为我没有更改brew的镜像源，所以创建成功后文件会出现在`/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/juejin.rb` 我们可以手动将这个 juejin.rb 文件剪切到自己的Formula文件夹下`/usr/local/Homebrew/Library/Taps/youngjuning/homebrew-juejin-spider/Formula/juejin.rb`。
 
 我们需要对安装方式做一下调整:
 
@@ -557,9 +576,9 @@ $ brew tap youngjuning/juejin-spider https://github.com/youngjuning/homebrew-jue
 $ brew install youngjuning/juejin-spider/juejin
 ```
 
-## 超级赛亚人镇楼
+## 超级赛亚人镇
 
-<img src="https://i.loli.net/2020/08/12/FAT4jKHG2Es7rfN.gif" style="zoom:65%;" />
+![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bcd91045ddd8472f857afccf3dff1b15~tplv-k3u1fbpfcp-zoom-1.image)
 
 > 感谢你耐心看完了这篇文章，点赞等于学会，收藏等于精通，点赞加收藏是真爱！！！也期待在评论区和我讨论！！！
 
