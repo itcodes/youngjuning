@@ -2,7 +2,7 @@
 title: React Native 架构面面观
 date: 2020-02-23 17:26:09
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - 架构
   - 最佳实践
@@ -113,7 +113,7 @@ declare const global: {
 
 - [@ant-design/react-native](https://rn.mobile.ant.design/index-cn):  Ant Design 出品的一个基于 React Native 的 UI 组件库
 - [beeshell](https://github.com/Meituan-Dianping/beeshell): 美团 React Native 组件库
-- [react-native-elements](https://react-native-elements.github.io/react-native-elements/): 跨平台React Native UI工具包
+- [react-native-elements](https://react-native-elements.github.io/react-native-elements/): HybridReact Native UI工具包
 - [react-native-ui-lib](https://github.com/wix/react-native-ui-lib): 没有体验过，看起来很强大
 
 > 其他组件收藏请查看：https://bre.is/jWUGvPrK

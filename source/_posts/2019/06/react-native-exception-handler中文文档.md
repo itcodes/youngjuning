@@ -2,7 +2,7 @@
 title: react-native-exception-handler 中文文档
 date: 2019-06-11 14:20:44
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - [exception]
   - [error]

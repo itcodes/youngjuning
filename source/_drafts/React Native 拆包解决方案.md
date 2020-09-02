@@ -2,7 +2,7 @@
 title: React Native 拆包解决方案
 date: 2020-02-15 16:56:19
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - metro
 ---

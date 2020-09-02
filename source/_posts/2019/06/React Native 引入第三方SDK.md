@@ -2,7 +2,7 @@
 title: React Native 引入第三方SDK
 date: 2019-06-05 10:57:55
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - Android
 ---

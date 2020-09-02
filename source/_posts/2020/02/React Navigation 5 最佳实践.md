@@ -2,7 +2,7 @@
 title: React Navigation 5 最佳实践
 date: 2020-02-17 10:29:14
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - 最佳实践
   - 掘金专栏

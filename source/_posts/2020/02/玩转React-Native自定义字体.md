@@ -2,7 +2,7 @@
 title: 玩转 React Native 自定义字体
 date: 2020-02-29 16:52:39
 categories:
-  - [跨平台,React Native]
+  - [Hybrid,React Native]
 tags:
   - 字体
   - fonts

@@ -2,7 +2,7 @@
 title: 配置 react native splash screen 防止启动白屏
 date: 2020-02-21 12:41:18
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - 启动屏
 ---

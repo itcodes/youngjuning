@@ -2,7 +2,7 @@
 title: React Navigation 4
 date: 2020-01-10 10:29:14
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - 指南
 ---

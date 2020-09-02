@@ -69,8 +69,8 @@ tags:
 - 现代浏览器和 IE11 及以上（需要 [polyfills](https://ant.design/docs/react/getting-started-cn#兼容性)）。
 - 支持服务端渲染。
   - [Next.js](https://nextjs.frontendx.cn/): **Next.js** 是一个轻量级的 React 服务端渲染应用框架。
-- [Electron](https://electronjs.org/)：使用 JavaScript，HTML 和 CSS 构建跨平台的桌面应用程序
-  - [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate): 可扩展的跨平台应用程序的基础
+- [Electron](https://electronjs.org/)：使用 JavaScript，HTML 和 CSS 构建Hybrid的桌面应用程序
+  - [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate): 可扩展的Hybrid应用程序的基础
 
 ## 安装
 

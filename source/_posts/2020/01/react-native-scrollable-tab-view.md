@@ -2,7 +2,7 @@
 title: react-native-scrollable-tab-view
 date: 2020-01-30 15:19:19
 categories:
-  - [跨平台, React Native]
+  - [Hybrid, React Native]
 tags:
   - 插件
   - 指南
