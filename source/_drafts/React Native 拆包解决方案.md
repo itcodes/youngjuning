@@ -38,7 +38,7 @@ react-native bundle
 - `--platform [string]`：ios 或 android（默认ios）
 - `--dev [boolean]`：打正式包请设置为false（默认true）
 - `--entry-file <path>` ：打包入口文件，绝对路径、相对路径都可以
-- s`--bundle-output [string]：bundle包存放的位置
+- `--bundle-output [string]：bundle包存放的位置
 - `--assets-dest [string]` ：存放静态资源的文件夹
 - `--config [string]`：CLI 配置文件的路径，根据基础包业务包的不同，添加 `--config <path/to/config>` 参数对相应入口文件打包。
 
