@@ -120,24 +120,19 @@ closes issue #12
 
 可自定义的Commitizen插件（或独立实用运行）可帮助实现一致的提交消息。
 
-安装 commitizen、cz-customizable
+安装 cz-customizable：
 
 ```sh
-$ yarn add commitizen cz-customizable -D
+$ yarn add cz-customizable -D
 ```
 
-向 package.json 添加新的 script 并添加 commitizen 配置:
+向 package.json 添加新的 script：
 
 ```json
 {
   "scripts" : {
     ...
-    "commit": "git-cz"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    }
+    "commit": "./node_modules/cz-customizable/standalone.js"
   }
 }
 ```
@@ -152,10 +147,10 @@ $ yarn add commitizen cz-customizable -D
 
 commitlint检查您的提交消息是否符合[conventional commit format](https://conventionalcommits.org/)。
 
-1、安装 @commitlint/cli、husky 和 lint-staged
+1、安装 @commitlint/cli、husky：
 
 ```shell
-$ yarn add -D @commitlint/cli husky lint-staged
+$ yarn add -D @commitlint/cli husky
 ```
 
 2、添加 git commit hooks 到 package.json：
@@ -183,17 +178,50 @@ $ yarn add commitlint-config-cz -D
 
 ```js
 module.exports = {
-  extends: ['cz']
+  extends: ['cz'],
+  rules: {
+    // must add these rules
+    'type-empty': [2, 'never'],
+    'subject-empty': [2, 'never']
+  }
 };
 ```
 
 ## vscode commitizen
 
+在 VS Code 中搜索装 vscode commitizen，然后就可以摆脱命令行了，而且这个插件是和前面所有的配置兼容的，效果如下：
+
 ![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c46df7e45f584f63b99b1748c5b6e743~tplv-k3u1fbpfcp-zoom-1.image)
+
+## GitHub Actions
+
+新建一个 github workflow `.github/workflows/commitlint.yml`，作用是在提交 pull_request 时，检查信息:
+
+```yml
+name: Lint Commit Messages
+on: [pull_request]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: npm install
+      - name: Add dependencies for commitlint action
+        # $GITHUB_WORKSPACE is the path to your repository
+        run: echo "::set-env name=NODE_PATH::$GITHUB_WORKSPACE/node_modules"
+      # Now the commitlint action will run considering its own dependencies and yours as well 🚀
+      - uses: wagoid/commitlint-github-action@v2
+```
 
 ## standard-version
 
-[standard-version](https://link.zhihu.com/?target=https%3A//github.com/conventional-changelog/standard-version) 是一款遵循[语义化版本（ semver）](https://link.zhihu.com/?target=https%3A//semver.org/)和 [commit message 标准规范](https://link.zhihu.com/?target=https%3A//conventionalcommits.org/) 的版本和 changlog 自动化工具。通常情况线下，我们会在 master 分支进行如下的版本发布操作：
+[standard-version](https://link.zhihu.com/?target=https%3A//github.com/conventional-changelog/standard-version) 是一款遵循[语义化版本（ semver）](https://link.zhihu.com/?target=https%3A//semver.org/)和 [commit message 标准规范](https://link.zhihu.com/?target=https%3A//conventionalcommits.org/) 的版本和 changelog 自动化工具。通常情况线下，我们会在 master 分支进行如下的版本发布操作：
 
 1. `git pull origin master`
 2. 根据 `package.json` 中的 `version` 更新版本号，更新 CHANGELOG
