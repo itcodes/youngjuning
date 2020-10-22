@@ -109,6 +109,24 @@ module.exports = {
 - [TypeError: Cannot read property 'Object.<anonymous>' of null](https://github.com/facebook/jest/issues/4710)
 - [Jest: Ignore lines for code coverage](https://stackoverflow.com/questions/38740165/jest-ignore-lines-for-code-coverage)
 - [Jest - how to test if a component does not exist?](https://stackoverflow.com/questions/46252396/jest-how-to-test-if-a-component-does-not-exist)
+- [Testing React with Jest, Enzyme, and Sinon](https://www.leighhalliday.com/testing-react-jest-enzyme-sinon)
+- [How to test React with Jest & Enzyme](https://www.robinwieruch.de/react-testing-jest-enzyme)
+- [Better Testing with Enzyme](https://www.newline.co/fullstack-react/30-days-of-react/day-25/)
+- [react前端自动化测试： jest + enzyme](https://www.cnblogs.com/susu8/p/9512393.html)
+- [React Enzyme: Testing componentWillReceiveProps, the Clean Way](https://medium.com/@tjhubert/react-enzyme-testing-componentwillreceiveprops-the-clean-way-4dba4f02be0b)
+- [Sinon 入门,看这篇文章就够了](https://segmentfault.com/a/1190000010372634)
+- [Test suite failed to run. "RelativeImageStub" error](https://github.com/facebook/jest/issues/9680)
+- [Remove warnings when rendering react-native components](https://github.com/enzymejs/enzyme/issues/831)
+- [Create Adapter for React Native & React 16](https://github.com/enzymejs/enzyme/issues/1436)
+- [It looks like you called `mount()` without a global document being loaded.](https://github.com/enzymejs/enzyme/issues/341)
+- [react-native-mock](https://github.com/RealOrangeOne/react-native-mock)
+- [Refs not working in component being shallow rendered](https://github.com/enzymejs/enzyme/issues/316)
+- [Testing React Component using Enzyme + Jest Part 1: Setup](https://ttfb.test.traveloka.com/testing-react-component-using-enzyme-jest-part-1/)
+- [Enzyme笔记](http://blog.leanote.com/post/haitang.reg@qq.com/Enzyme%E7%AC%94%E8%AE%B0)
+- [setInterval not working when testing with jest](https://stackoverflow.com/questions/58708445/setinterval-not-working-when-testing-with-jest)
+- [Shallow with New React Context API. Consumer not getting context](https://github.com/enzymejs/enzyme/issues/1636)
+- [Can't simulate press event in react-native](https://github.com/enzymejs/enzyme/issues/991)
+- [ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.](https://github.com/facebook/jest/issues/6434)
 
 # 使用Jest和Enzyme进行React Native单元测试
 
@@ -119,6 +137,8 @@ module.exports = {
 - enzyme-adapter-react-16：React Native 测试所需的桥接器
 - enzyme-to-json：将 Enzyme wrappers 转换成符合 Jest 快照测试的JSON格式。
 - jest-enzyme：Jest assertions for enzyme
+- sinon：JavaScript的独立测试间谍（test spies），存根（stubs）和模拟（mocks）。 适用于任何单元测试框架。
+- react-native-mock: A fully mocked and test-friendly version of react native
 
 ## 安装依赖
 
