@@ -1,6 +1,6 @@
 ---
 title: Jest单元测试入门指南
-date: 2020-09-29 15:23:13
+date: 2020-10-16 15:23:13
 categories:
   - [工具]
 tags:
@@ -114,7 +114,6 @@ module.exports = {
 - [Better Testing with Enzyme](https://www.newline.co/fullstack-react/30-days-of-react/day-25/)
 - [react前端自动化测试： jest + enzyme](https://www.cnblogs.com/susu8/p/9512393.html)
 - [React Enzyme: Testing componentWillReceiveProps, the Clean Way](https://medium.com/@tjhubert/react-enzyme-testing-componentwillreceiveprops-the-clean-way-4dba4f02be0b)
-- [Sinon 入门,看这篇文章就够了](https://segmentfault.com/a/1190000010372634)
 - [Test suite failed to run. "RelativeImageStub" error](https://github.com/facebook/jest/issues/9680)
 - [Remove warnings when rendering react-native components](https://github.com/enzymejs/enzyme/issues/831)
 - [Create Adapter for React Native & React 16](https://github.com/enzymejs/enzyme/issues/1436)
@@ -127,6 +126,18 @@ module.exports = {
 - [Shallow with New React Context API. Consumer not getting context](https://github.com/enzymejs/enzyme/issues/1636)
 - [Can't simulate press event in react-native](https://github.com/enzymejs/enzyme/issues/991)
 - [ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.](https://github.com/facebook/jest/issues/6434)
+- [Difference between enzyme, ReactTestUtils and react-testing-library](https://stackoverflow.com/questions/54152562/difference-between-enzyme-reacttestutils-and-react-testing-library)
+- [Enzyme vs. react-testing-library: A mindset shift](https://blog.logrocket.com/enzyme-vs-react-testing-library-a-mindset-shift/)
+- [Next.js | 初探單元測試，使用 Jest + React Testing Library](https://medium.com/%E6%89%8B%E5%AF%AB%E7%AD%86%E8%A8%98/nextjs-testing-tutorial-1-ed4b27563761)
+- [Testing JavaScript](https://testingjavascript.com/): Learn the smart, efficient way to test any JavaScript application.
+
+### 实战
+
+- [react-native-elements](https://github.com/youngjuning/react-native-elements)
+
+## 其他 
+
+- [Sinon 入门,看这篇文章就够了](https://segmentfault.com/a/1190000010372634)
 
 # 使用Jest和Enzyme进行React Native单元测试
 
@@ -134,11 +145,11 @@ module.exports = {
 
 - jest
 - enzyme：Enzyme是用于React的JavaScript测试实用程序，可以更轻松地测试React组件的输出。您还可以根据给定的输出进行操作，遍历并以某种方式模拟运行时。
-- enzyme-adapter-react-16：React Native 测试所需的桥接器
-- enzyme-to-json：将 Enzyme wrappers 转换成符合 Jest 快照测试的JSON格式。
-- jest-enzyme：Jest assertions for enzyme
-- sinon：JavaScript的独立测试间谍（test spies），存根（stubs）和模拟（mocks）。 适用于任何单元测试框架。
-- react-native-mock: A fully mocked and test-friendly version of react native
+- enzyme-adapter-react-16: React Native 测试所需的桥接器
+- enzyme-to-json: 将 Enzyme wrappers 转换成符合 Jest 快照测试的JSON格式。
+- jest-enzyme: Jest assertions for enzyme
+- sinon: JavaScript的独立测试间谍（test spies），存根（stubs）和模拟（mocks）。 适用于任何单元测试框架。
+- react-native-mock-render: A fully mocked and test-friendly version of react native
 
 ## 安装依赖
 

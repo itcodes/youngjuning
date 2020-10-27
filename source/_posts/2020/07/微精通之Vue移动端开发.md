@@ -142,7 +142,7 @@ module.exports = {
 }
 ```
 
-> 注意：如果是团队协作的项目，请删除 `.gitignire` 中的 `.vscode` ，将配置加入到代码库。
+> 注意：如果是团队协作的项目，请删除 `.gitignore` 中的 `.vscode` ，将配置加入到代码库。
 
 ### Format初始代码
 
