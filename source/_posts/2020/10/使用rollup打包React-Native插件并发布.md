@@ -18,28 +18,48 @@ tags:
 $ yarn add -D rollup
 ```
 
+## package.json
+
+```json
+{
+  "name": "react-native-refined-components",
+  "version": "0.1.0",
+  "description": "refined react-native components",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "browser": "dist/umd/index.js",
+  "types": "dist/es/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist/* && rollup -c",
+    "dev": "rollup -c -w"
+  }
+}
+```
+
 ## rollup配置文件
 
 在根目录新建 `rollup.config.js`:
 
 ```js
+import pkg from './package.json';
+
 export default [
   // browser-friendly UMD build
   {
-    input: "./scr/index.ts",
+    input: "./src/index.ts",
     // 输出
     output: {
-      file: "./dist/umd/index.js", // 文件
+      file: pkg.browser, // 文件
       format: 'umd', // 格式
       name: 'refined-components', // 生成包名称，代表你的 iife/umd 包
     },
   },
   // CommonJS (for Node) and ES module (for bundlers) build.
   {
-		input: "./scr/index.ts",
+		input: "./src/index.ts",
 		output: [
-			{ file: "./dist/cjs/index.js", format: 'cjs' },
-			{ file: "./dist/es/index.js", format: 'es' }
+			{ file: pkg.main, format: 'cjs' },
+			{ file: pkg.module, format: 'es' }
     ],
 	}
 ]
@@ -66,7 +86,7 @@ export default [
     input: "./src/index.ts",
     // 输出
     output: {
-      file: "./dist/umd/index.js", // 文件
+      file: pkg.browser, // 文件
       format: 'umd', // 格式
       name: 'refined-components', // 生成包名称，代表你的 iife/umd 包
     },
@@ -78,8 +98,8 @@ export default [
   {
 		input: "./src/index.ts",
 		output: [
-			{ file: "./dist/cjs/index.js", format: 'cjs' },
-			{ file: "./dist/es/index.js", format: 'es' }
+			{ file: pkg.main, format: 'cjs' },
+			{ file: pkg.module, format: 'es' }
     ],
     plugins: [json()]
 	}
@@ -189,6 +209,7 @@ export default [
       sourcemap: true
     },
     plugins: [
+      // 如果用了 rollup-plugin-node-resolve， 则必须将它放在 typescript 插件前面
       typescript({ 
         tsconfigOverride: { 
           compilerOptions: { declaration: false } 
@@ -210,6 +231,27 @@ export default [
     external: ["react","react-native"],
 	}
 ]
+```
+
+### tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "declaration": true,
+    "jsx": "react",
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+  },
+  "exclude": ["dist","rollup.config.js"]
+}
 ```
 
 ## rollup-plugin-multi-input 使用
@@ -256,3 +298,7 @@ export default [
 	}
 ]
 ```
+
+## 其他插件
+
+- rollup-plugin-progress: 打包进度条
