@@ -302,3 +302,4 @@ export default [
 ## 其他插件
 
 - rollup-plugin-progress: 打包进度条
+- rollup-plugin-terser: 压缩文件
