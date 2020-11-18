@@ -9,34 +9,64 @@ tags:
   - 端到端测试
 ---
 
+![](https://i.loli.net/2020/11/18/cnIAURFYCOsGfDk.png)
+
 <!--more-->
 
-## Jest 配置
+# 使用Jest和Enzyme进行React Native单元测试
 
-## Matchers（匹配器）
+## 工具介绍
 
-### 普通匹配器
+- jest：Jest是一个令人愉快的 JavaScript 测试框架，专注于简洁明快。
+- enzyme：Enzyme是用于React的JavaScript测试实用程序，可以更轻松地测试React组件的输出。您还可以根据给定的输出进行操作，遍历并以某种方式模拟运行时。
+- enzyme-adapter-react-16: React Native 测试所需的桥接器
+- enzyme-to-json: 将 Enzyme wrappers 转换成符合 Jest 快照测试的JSON格式。
+- jest-enzyme: Jest assertions for enzyme
+- sinon: JavaScript的独立测试间谍（test spies），存根（stubs）和模拟（mocks）。 适用于任何单元测试框架。
+- react-native-mock-render: A fully mocked and test-friendly version of react native
 
-#### toBe
+## 安装依赖
 
-测试值的方法是看是否精确匹配。
-
-```js
-test('two plus two is four', () => {
-  expect(2 + 2).toBe(4);
-});
+```shell
+$ yarn add jest -D
+# babel
+$ yarn add @babel/core @babel/runtime babel-jest -D
+# enzyme
+$ yarn add enzyme enzyme-adapter-react-16 enzyme-to-json -D
+# react-native-mock-render
+$ yarn add react-native-mock-render -D
+# types
+$ yarn add @types/enzyme @types/jest @types/react @types/react-native -D
 ```
 
-### toEqual 
+## 配置
 
-检查对象的值是否相等。
+### jest.config.js
+
+- setupFilesAfterEnv：使用Jest运行安装文件以配置Enzyme和适配器（如下文`jest.setup.js`中所示），之前是`setupTestFrameworkScriptFile`，也可以使用`setupFiles`
+- snapshotSerializers：推荐使用序列化程序使用`enzyme-to-json`，它的安装和使用非常简单，并允许您编写简洁的快照测试。
 
 ```js
-test('object assignment', () => {
-  const data = {one: 1};
-  data['two'] = 2;
-  expect(data).toEqual({one: 1, two: 2});
-});
+module.exports = {
+  ...
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  ...
+};
+```
+
+> Jest 在 [24.1.0](https://stackoverflow.com/questions/55752673/option-setuptestframeworkscriptfile-was-replaced-by-configuration-setupfilesa) 之后只能使用 `setupFilesAfterEnv`
+
+### jest.setup.js
+
+```js
+import 'react-native';
+import 'react-native-mock-render/mock';
+import 'react-native/Libraries/Animated/src/bezier'; // for https://github.com/facebook/jest/issues/4710
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
 ```
 
 ## 覆盖率指标
@@ -46,13 +76,19 @@ test('object assignment', () => {
 - Functions（Funcs）：函数覆盖率，是不是每个函数都调用了？
 - Lines（Lines）：行覆盖率，是不是每一行都执行了？
 
-## react-test-renderer & react-dom/test-utils
-
-## enzyme
+## enzyme 入门
 
 - shallow render（shallow）
 - full render（mount）
 - static render（render）
+
+## 组件测试
+
+### 生命周期测试
+
+### UI测试
+
+### 组件函数调用
 
 ## FAQ
 
@@ -76,13 +112,9 @@ module.exports = {
 };
 ```
 
-## 组件测试
+## 其他工具
 
-### 生命周期测试
-
-### UI测试
-
-### 组件函数调用
+### react-test-renderer & react-dom/test-utils
 
 ## 参考链接
 
@@ -135,55 +167,6 @@ module.exports = {
 
 - [react-native-elements](https://github.com/youngjuning/react-native-elements)
 
-## 其他 
+### 其他 
 
 - [Sinon 入门,看这篇文章就够了](https://segmentfault.com/a/1190000010372634)
-
-# 使用Jest和Enzyme进行React Native单元测试
-
-## 工具介绍
-
-- jest
-- enzyme：Enzyme是用于React的JavaScript测试实用程序，可以更轻松地测试React组件的输出。您还可以根据给定的输出进行操作，遍历并以某种方式模拟运行时。
-- enzyme-adapter-react-16: React Native 测试所需的桥接器
-- enzyme-to-json: 将 Enzyme wrappers 转换成符合 Jest 快照测试的JSON格式。
-- jest-enzyme: Jest assertions for enzyme
-- sinon: JavaScript的独立测试间谍（test spies），存根（stubs）和模拟（mocks）。 适用于任何单元测试框架。
-- react-native-mock-render: A fully mocked and test-friendly version of react native
-
-## 安装依赖
-
-```shell
-$ yarn add jest -D
-$ yarn add enzyme enzyme-adapter-react-16 enzyme-to-json -D
-$ yarn add @types/react-test-renderer @types/enzyme @types/jest @types/react @types/react-native -D
-```
-
-## 配置
-
-### jest.config.js
-
-- setupFilesAfterEnv：使用Jest运行安装文件以配置Enzyme和适配器（如下文`jest.setup.js`中所示），之前是`setupTestFrameworkScriptFile`，也可以使用`setupFiles`
-- snapshotSerializers：推荐使用序列化程序使用`enzyme-to-json`，它的安装和使用非常简单，并允许您编写简洁的快照测试。
-
-```js
-module.exports = {
-  ...
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  snapshotSerializers: ['enzyme-to-json/serializer'],
-  ...
-};
-```
-
-> Jest 在 [24.1.0](https://stackoverflow.com/questions/55752673/option-setuptestframeworkscriptfile-was-replaced-by-configuration-setupfilesa) 之后只能使用 `setupFilesAfterEnv`
-
-### jest.setup.js
-
-```js
-import 'react-native';
-import 'react-native/Libraries/Animated/src/bezier'; // for https://github.com/facebook/jest/issues/4710
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-Enzyme.configure({ adapter: new Adapter() });
-```
