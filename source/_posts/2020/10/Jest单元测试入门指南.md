@@ -30,7 +30,7 @@ tags:
 ```shell
 $ yarn add jest -D
 # babel
-$ yarn add @babel/core @babel/runtime babel-jest -D
+$ yarn add babel-jest -D
 # enzyme
 $ yarn add enzyme enzyme-adapter-react-16 enzyme-to-json -D
 # react-native-mock-render
@@ -48,10 +48,15 @@ $ yarn add @types/enzyme @types/jest @types/react @types/react-native -D
 
 ```js
 module.exports = {
-  ...
+  preset: 'react-native',
+  verbose: true,
+  collectCoverage: true,
+  moduleNameMapper: { // for https://github.com/facebook/jest/issues/919
+    '^image![a-zA-Z0-9$_-]+$': 'GlobalImageStub',
+    '^[@./a-zA-Z0-9$_-]+\\.(png|gif)$': 'RelativeImageStub',
+  },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  snapshotSerializers: ['enzyme-to-json/serializer'],
-  ...
+  snapshotSerializers: ['enzyme-to-json/serializer']
 };
 ```
 
@@ -71,6 +76,8 @@ Enzyme.configure({ adapter: new Adapter() });
 
 ## 覆盖率指标
 
+- [代码覆盖率工具 Istanbul 入门教程](https://www.ruanyifeng.com/blog/2015/06/istanbul.html)
+
 - Statements（stmts）：表达式覆盖率，是不是每个表达式都执行了？
 - Branches（Branch）：分支覆盖率，是不是每个if代码块都执行了？
 - Functions（Funcs）：函数覆盖率，是不是每个函数都调用了？
@@ -82,15 +89,31 @@ Enzyme.configure({ adapter: new Adapter() });
 - full render（mount）
 - static render（render）
 
+## 常用函数
+
+### jest.useFakeTimers()
+
+- [Jest 中 如何测试 setTimeout](https://yes-1-am.gitbook.io/blog/ce-shi/jest-zhong-ru-he-ce-shi-settimeout)
+
 ## 组件测试
 
 ### 生命周期测试
+
+- [组件生命周期测试 - jest+enzyme](http://echizen.github.io/tech/2017/04-24-component-lifycycle-test)
 
 ### UI测试
 
 ### 组件函数调用
 
 ## FAQ
+
+### 如何忽略某一块代码
+
+添加以下格式的注释到要忽略的代码块前即可：
+
+```js
+/* istanbul ignore next */
+```
 
 ### 如何使用 ES6 的 import 和 export
 
@@ -112,61 +135,78 @@ module.exports = {
 };
 ```
 
-## 其他工具
+### How to Remove warnings when rendering react-native components
+
+- 参考自：[Remove warnings when rendering react-native components](https://github.com/enzymejs/enzyme/issues/831#issuecomment-352934963)
+
+```js
+describe('mounting', () => {
+    const origConsole = console.error;
+    beforeEach(() => {
+      console.error = () => {};
+    });
+    afterEach(() => {
+      console.error = origConsole;
+    });
+    it ...... 
+       mount....
+});
+```
+
+### 其他 issues
+
+- @enzyme
+  - [Create Adapter for React Native & React 16](https://github.com/enzymejs/enzyme/issues/1436)
+  - [Can't simulate press event in react-native](https://github.com/enzymejs/enzyme/issues/991)
+  - [Shallow with New React Context API. Consumer not getting context](https://github.com/enzymejs/enzyme/issues/1636)
+- @jest
+  - [requiring image in react-native](https://github.com/facebook/jest/issues/919) @react-native
+  - [ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.](https://github.com/facebook/jest/issues/6434)
+
+## 其他选型
 
 ### react-test-renderer & react-dom/test-utils
 
+### react-native-testing-library
+
+### Sinon
+
+- [Testing React with Jest, Enzyme, and Sinon](https://www.leighhalliday.com/testing-react-jest-enzyme-sinon)
+- [Sinon 入门,看这篇文章就够了](https://segmentfault.com/a/1190000010372634)
+
 ## 参考链接
 
-- [3分钟生成开源项目的测试覆盖率](https://zhuanlan.zhihu.com/p/54958391)
+- [Difference between enzyme, ReactTestUtils and react-testing-library](https://stackoverflow.com/questions/54152562/difference-between-enzyme-reacttestutils-and-react-testing-library)
 - [利用 Jest 为 React 组件编写单元测试](https://loveky.github.io/2018/06/05/unit-testing-react-component-with-jest/)
-- [携程租车React Native单元测试实践](https://cloud.tencent.com/developer/news/578421)
-- [JavaScript 测试系列实战（三）：使用 Mock 模拟模块并处理组件交互](https://my.oschina.net/u/4088983/blog/4544477)
-- [Jest+enzyme测试React-native项目（从配置到案例）](https://juejin.im/post/6844903929998737416)
-- [「基于 Jest + Enzyme 的 React 单元测试 | 掘金技术征文 」](https://juejin.im/post/6844903476061814797)
+- [Enzyme笔记](http://blog.leanote.com/post/haitang.reg@qq.com/Enzyme%E7%AC%94%E8%AE%B0)
 - [使用jest+enzyme测试react组件](https://github.com/frontend9/fe9-library/issues/244)
-- [组件生命周期测试 - jest+enzyme](http://echizen.github.io/tech/2017/04-24-component-lifycycle-test)
 - [使用Jest测试JavaScript(Mock篇)](https://zhuanlan.zhihu.com/p/47009664)
 - [使用 Jest 和 Enzyme 测试 React 组件](https://juejin.im/post/6844903828228161544)
-- [expect(jest.fn()).toHaveBeenCalled() error](https://stackoverflow.com/questions/45182959/expectjest-fn-tohavebeencalled-error)
-- [Testing custom events react-native](https://stackoverrun.com/cn/q/12348569)
-- [React组件中的Enzyme测试事件监听器](https://xbuba.com/questions/52279478)
-- [Jest 中 如何测试 setTimeout](https://yes-1-am.gitbook.io/blog/ce-shi/jest-zhong-ru-he-ce-shi-settimeout)
-- [代码覆盖率工具 Istanbul 入门教程](https://www.ruanyifeng.com/blog/2015/06/istanbul.html)
 - [一杯茶的时间，上手 Jest 测试框架](https://tuture.co/2020/04/04/9e7496d/)
 - [用jest+enzyme來寫Reactjs的單元測試吧！](https://github.com/Hsueh-Jen/blog/issues/1)
 - [Jest单元测试配置和所遇问题解决办法](https://github.com/yinxin630/blog/issues/22)
 - [使用Jest和Enzyme模拟自定义事件](https://www.thinbug.com/q/49772497)
 - [Enzyme is not finding component by props](https://stackoverflow.com/questions/40776121/enzyme-is-not-finding-component-by-props)
 - [TypeError: Cannot read property 'Object.<anonymous>' of null](https://github.com/facebook/jest/issues/4710)
-- [Jest: Ignore lines for code coverage](https://stackoverflow.com/questions/38740165/jest-ignore-lines-for-code-coverage)
 - [Jest - how to test if a component does not exist?](https://stackoverflow.com/questions/46252396/jest-how-to-test-if-a-component-does-not-exist)
-- [Testing React with Jest, Enzyme, and Sinon](https://www.leighhalliday.com/testing-react-jest-enzyme-sinon)
 - [How to test React with Jest & Enzyme](https://www.robinwieruch.de/react-testing-jest-enzyme)
 - [Better Testing with Enzyme](https://www.newline.co/fullstack-react/30-days-of-react/day-25/)
 - [react前端自动化测试： jest + enzyme](https://www.cnblogs.com/susu8/p/9512393.html)
 - [React Enzyme: Testing componentWillReceiveProps, the Clean Way](https://medium.com/@tjhubert/react-enzyme-testing-componentwillreceiveprops-the-clean-way-4dba4f02be0b)
 - [Test suite failed to run. "RelativeImageStub" error](https://github.com/facebook/jest/issues/9680)
-- [Remove warnings when rendering react-native components](https://github.com/enzymejs/enzyme/issues/831)
-- [Create Adapter for React Native & React 16](https://github.com/enzymejs/enzyme/issues/1436)
 - [It looks like you called `mount()` without a global document being loaded.](https://github.com/enzymejs/enzyme/issues/341)
-- [react-native-mock](https://github.com/RealOrangeOne/react-native-mock)
 - [Refs not working in component being shallow rendered](https://github.com/enzymejs/enzyme/issues/316)
 - [Testing React Component using Enzyme + Jest Part 1: Setup](https://ttfb.test.traveloka.com/testing-react-component-using-enzyme-jest-part-1/)
-- [Enzyme笔记](http://blog.leanote.com/post/haitang.reg@qq.com/Enzyme%E7%AC%94%E8%AE%B0)
-- [setInterval not working when testing with jest](https://stackoverflow.com/questions/58708445/setinterval-not-working-when-testing-with-jest)
-- [Shallow with New React Context API. Consumer not getting context](https://github.com/enzymejs/enzyme/issues/1636)
-- [Can't simulate press event in react-native](https://github.com/enzymejs/enzyme/issues/991)
-- [ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.](https://github.com/facebook/jest/issues/6434)
-- [Difference between enzyme, ReactTestUtils and react-testing-library](https://stackoverflow.com/questions/54152562/difference-between-enzyme-reacttestutils-and-react-testing-library)
-- [Enzyme vs. react-testing-library: A mindset shift](https://blog.logrocket.com/enzyme-vs-react-testing-library-a-mindset-shift/)
-- [Next.js | 初探單元測試，使用 Jest + React Testing Library](https://medium.com/%E6%89%8B%E5%AF%AB%E7%AD%86%E8%A8%98/nextjs-testing-tutorial-1-ed4b27563761)
-- [Testing JavaScript](https://testingjavascript.com/): Learn the smart, efficient way to test any JavaScript application.
+
+
+
+
+### react native
+
+- [携程租车React Native单元测试实践](https://cloud.tencent.com/developer/news/578421)
+- [Jest+enzyme测试React-native项目（从配置到案例）](https://juejin.im/post/6844903929998737416)
 
 ### 实战
 
 - [react-native-elements](https://github.com/youngjuning/react-native-elements)
-
-### 其他 
-
-- [Sinon 入门,看这篇文章就够了](https://segmentfault.com/a/1190000010372634)
+- [JavaScript 测试系列实战（三）：使用 Mock 模拟模块并处理组件交互](https://my.oschina.net/u/4088983/blog/4544477)
