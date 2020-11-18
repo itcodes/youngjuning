@@ -187,17 +187,3 @@ import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
 ```
-
-### .gitignore
-
-新增忽略快照文件代码：
-
-```
-__tests__/__snapshots__/
-```
-
-## 忽略
-
-### 忽略整个文件
-
-### 文件内忽略
