@@ -113,9 +113,12 @@ $ npx pm2 start verdaccio
 {
   "command": {
     "publish": {
-      ...
+      "ignoreChanges": [
+        "ignored-file",
+        "*.md"
+      ],
+      "message": "chore(release): publish %s",
       "registry": "http://localhost:4873"
-      ...
     }
   },
 }
@@ -185,6 +188,22 @@ $ yarn add -W -D typescript
     - registry: 设置自定义的 npm 代理（比如使用 verdaccio 搭建的私服）
   - version
     - conventionalCommits: `lerna version` 会自动决定 version bump 和生成 CHANGELOG 文件
+
+## npm scripts
+
+```json
+{
+  "scripts": {
+    "a": "lerna add",
+    "b": "lerna bootstrap",
+    "c": "lerna changed",
+    "w": "yarn add --ignore-workspace-root-check --dev",
+    "p": "lerna publish",
+    "r": "lerna run",
+    "commit": "git cz"
+  },
+}
+```
 
 ## 链接
 
