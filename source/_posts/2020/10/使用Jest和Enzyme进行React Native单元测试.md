@@ -196,8 +196,6 @@ describe('mounting', () => {
 - [Testing React Component using Enzyme + Jest Part 1: Setup](https://ttfb.test.traveloka.com/testing-react-component-using-enzyme-jest-part-1/)
 
 
-
-
 ### react native
 
 - [携程租车React Native单元测试实践](https://cloud.tencent.com/developer/news/578421)
