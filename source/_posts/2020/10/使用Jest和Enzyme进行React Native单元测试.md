@@ -13,16 +13,13 @@ tags:
 
 <!--more-->
 
-# 使用Jest和Enzyme进行React Native单元测试
-
 ## 工具介绍
 
 - jest：Jest是一个令人愉快的 JavaScript 测试框架，专注于简洁明快。
 - enzyme：Enzyme是用于React的JavaScript测试实用程序，可以更轻松地测试React组件的输出。您还可以根据给定的输出进行操作，遍历并以某种方式模拟运行时。
+- jest-enzyme: Jest assertions for enzyme
 - enzyme-adapter-react-16: React Native 测试所需的桥接器
 - enzyme-to-json: 将 Enzyme wrappers 转换成符合 Jest 快照测试的JSON格式。
-- jest-enzyme: Jest assertions for enzyme
-- sinon: JavaScript的独立测试间谍（test spies），存根（stubs）和模拟（mocks）。 适用于任何单元测试框架。
 - react-native-mock-render: A fully mocked and test-friendly version of react native
 
 ## 安装依赖
