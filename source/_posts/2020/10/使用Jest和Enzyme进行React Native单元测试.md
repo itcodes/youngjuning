@@ -1,5 +1,5 @@
 ---
-title: Jest单元测试入门指南
+title: 使用Jest和Enzyme进行React Native单元测试
 date: 2020-10-16 15:23:13
 categories:
   - [工具]
