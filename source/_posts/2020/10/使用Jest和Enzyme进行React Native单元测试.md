@@ -86,6 +86,8 @@ Enzyme.configure({ adapter: new Adapter() });
 - full render（mount）
 - static render（render）
 
+- [Enzyme is not finding component by props](https://stackoverflow.com/questions/40776121/enzyme-is-not-finding-component-by-props)
+
 ## 常用函数
 
 ### jest.useFakeTimers()
@@ -94,9 +96,14 @@ Enzyme.configure({ adapter: new Adapter() });
 
 ## 组件测试
 
+- [Jest - how to test if a component does not exist?](https://stackoverflow.com/questions/46252396/jest-how-to-test-if-a-component-does-not-exist)
+- [Refs not working in component being shallow rendered](https://github.com/enzymejs/enzyme/issues/316)
+
+
 ### 生命周期测试
 
 - [组件生命周期测试 - jest+enzyme](http://echizen.github.io/tech/2017/04-24-component-lifycycle-test)
+- [React Enzyme: Testing componentWillReceiveProps, the Clean Way](https://medium.com/@tjhubert/react-enzyme-testing-componentwillreceiveprops-the-clean-way-4dba4f02be0b)
 
 ### UI测试
 
@@ -157,10 +164,13 @@ describe('mounting', () => {
   - [Can't simulate press event in react-native](https://github.com/enzymejs/enzyme/issues/991)
   - [Shallow with New React Context API. Consumer not getting context](https://github.com/enzymejs/enzyme/issues/1636)
 - @jest
-  - [requiring image in react-native](https://github.com/facebook/jest/issues/919) @react-native
+  - [requiring image in react-native](https://github.com/facebook/jest/issues/919)
+  - [TypeError: Cannot read property 'Object.<anonymous>' of null](https://github.com/facebook/jest/issues/4710)
   - [ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.](https://github.com/facebook/jest/issues/6434)
 
 ## 其他选型
+
+- [Difference between enzyme, ReactTestUtils and react-testing-library](https://stackoverflow.com/questions/54152562/difference-between-enzyme-reacttestutils-and-react-testing-library)
 
 ### react-test-renderer & react-dom/test-utils
 
@@ -173,7 +183,6 @@ describe('mounting', () => {
 
 ## 参考链接
 
-- [Difference between enzyme, ReactTestUtils and react-testing-library](https://stackoverflow.com/questions/54152562/difference-between-enzyme-reacttestutils-and-react-testing-library)
 - [利用 Jest 为 React 组件编写单元测试](https://loveky.github.io/2018/06/05/unit-testing-react-component-with-jest/)
 - [Enzyme笔记](http://blog.leanote.com/post/haitang.reg@qq.com/Enzyme%E7%AC%94%E8%AE%B0)
 - [使用jest+enzyme测试react组件](https://github.com/frontend9/fe9-library/issues/244)
@@ -183,18 +192,7 @@ describe('mounting', () => {
 - [用jest+enzyme來寫Reactjs的單元測試吧！](https://github.com/Hsueh-Jen/blog/issues/1)
 - [Jest单元测试配置和所遇问题解决办法](https://github.com/yinxin630/blog/issues/22)
 - [使用Jest和Enzyme模拟自定义事件](https://www.thinbug.com/q/49772497)
-- [Enzyme is not finding component by props](https://stackoverflow.com/questions/40776121/enzyme-is-not-finding-component-by-props)
-- [TypeError: Cannot read property 'Object.<anonymous>' of null](https://github.com/facebook/jest/issues/4710)
-- [Jest - how to test if a component does not exist?](https://stackoverflow.com/questions/46252396/jest-how-to-test-if-a-component-does-not-exist)
-- [How to test React with Jest & Enzyme](https://www.robinwieruch.de/react-testing-jest-enzyme)
-- [Better Testing with Enzyme](https://www.newline.co/fullstack-react/30-days-of-react/day-25/)
 - [react前端自动化测试： jest + enzyme](https://www.cnblogs.com/susu8/p/9512393.html)
-- [React Enzyme: Testing componentWillReceiveProps, the Clean Way](https://medium.com/@tjhubert/react-enzyme-testing-componentwillreceiveprops-the-clean-way-4dba4f02be0b)
-- [Test suite failed to run. "RelativeImageStub" error](https://github.com/facebook/jest/issues/9680)
-- [It looks like you called `mount()` without a global document being loaded.](https://github.com/enzymejs/enzyme/issues/341)
-- [Refs not working in component being shallow rendered](https://github.com/enzymejs/enzyme/issues/316)
-- [Testing React Component using Enzyme + Jest Part 1: Setup](https://ttfb.test.traveloka.com/testing-react-component-using-enzyme-jest-part-1/)
-
 
 ### react native
 
@@ -205,3 +203,9 @@ describe('mounting', () => {
 
 - [react-native-elements](https://github.com/youngjuning/react-native-elements)
 - [JavaScript 测试系列实战（三）：使用 Mock 模拟模块并处理组件交互](https://my.oschina.net/u/4088983/blog/4544477)
+
+### 翻译
+
+- [Testing React Component using Enzyme + Jest Part 1: Setup](https://ttfb.test.traveloka.com/testing-react-component-using-enzyme-jest-part-1/)
+- [Better Testing with Enzyme](https://www.newline.co/fullstack-react/30-days-of-react/day-25/)
+- [How to test React with Jest & Enzyme](https://www.robinwieruch.de/react-testing-jest-enzyme)
