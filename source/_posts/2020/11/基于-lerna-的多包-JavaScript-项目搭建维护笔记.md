@@ -194,12 +194,14 @@ $ yarn add -W -D typescript
 ```json
 {
   "scripts": {
-    "a": "lerna add",
-    "b": "lerna bootstrap",
-    "c": "lerna changed",
-    "w": "yarn add --ignore-workspace-root-check --dev",
-    "p": "lerna publish",
-    "r": "lerna run",
+    "release:beta": "lerna publish --canary --pre-dist-tag=beta --preid=beta --yes",
+    "release:rc": "lerna publish prerelease --pre-dist-tag=rc --preid=rc",
+    "release:next": "lerna publish prerelease --pre-dist-tag=next --preid=next",
+    "release:preminor": "lerna publish preminor --pre-dist-tag=next --preid=next",
+    "release:premajor": "lerna publish premajor --pre-dist-tag=next --preid=next",
+    "release": "lerna publish",
+    "release:minor": "lerna publish minor",
+    "release:major": "lerna publish major",
     "commit": "git cz"
   },
 }
