@@ -108,6 +108,7 @@ tags:
 - [lisong/code-push-server](http://t.cn/Rk0o2em): 自建 code-push 服务器
 - [wml](https://github.com/wix/wml): 符号链接的替代方法，它实际上将已更改的文件从源文件夹复制到目标文件夹
 - [react-native-shadow-generator](https://ethercreative.github.io/react-native-shadow-generator/)
+- [react-native-builder-bob](https://github.com/callstack/react-native-builder-bob): 👷‍♂️ Simple CLI to scaffold and build React Native libraries for different targets.
 
 ## 第三方SDK
 
