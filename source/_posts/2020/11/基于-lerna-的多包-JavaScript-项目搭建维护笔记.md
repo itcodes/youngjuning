@@ -100,10 +100,30 @@ uplinks:
 ...
 ```
 
-使用 pm2 运行：
+### 设置开机自启动
+
+0、run `sudo npm i -g pm2`
+
+1、run `pm2 start verdaccio` & `pm2 startup`
+
+outputs:
 
 ```sh
-$ npx pm2 start verdaccio
+[PM2] Init System found: launchd
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/usr/local/bin /usr/local/lib/node_modules/pm2/bin/pm2 startup launchd -u luozhu --hp /Users/luozhu
+```
+
+2、run `sudo env PATH=$PATH:/usr/local/bin /usr/local/lib/node_modules/pm2/bin/pm2 startup launchd -u luozhu --hp /Users/luozhu`
+
+outputs:
+
+```sh
+[PM2] Freeze a process list on reboot via:
+$ pm2 save
+
+[PM2] Remove init script via:
+$ pm2 unstartup launchd
 ```
 
 ### 修改 lerna publishConfig
