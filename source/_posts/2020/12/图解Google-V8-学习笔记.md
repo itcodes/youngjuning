@@ -48,6 +48,26 @@ V8 是一个由 Google 开发的开源 JavaScript 引擎，也被称为虚拟机
   - Add `export D8_PATH="~/v8/out.gn/x64.optdebug"`
   - `source ~/.zshrc`
 
+## d8命令
+
+### 查看解析器生成的AST
+
+```sh
+$ d8 --print-ast <file>
+```
+
+### 查看解析器生成的作用域
+
+```sh
+$ d8 --print-scopes <file>
+```
+
+### 查看解释器生成的字节码
+
+```sh
+$ d8 --print-bytecode <file>
+```
+
 > 使用 Demo 请参考 [d8-shell-examples](https://gist.github.com/kevincennis/0cd2138c78a07412ef21#d8-shell-examples)
 
 ## 代码执行方式
