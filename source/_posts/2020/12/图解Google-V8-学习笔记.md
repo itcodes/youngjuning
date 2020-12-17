@@ -13,11 +13,11 @@ tags:
 
 ## 核心概念
 
-JIT、作用域、词法环境、执行上下文
+JIT、作用域、词法环境、执行上下文、CPU架构（intel、ARM、MIPS）、AST、机器语言
 
 ## V8 是什么
 
-V8 是一个由 Google 开发的开源 JavaScript 引擎，目前用在 Chrome 浏览器和 Node.js 中，其核心功能是执行易于人类理解的 JavaScript 代码。
+V8 是一个由 Google 开发的开源 JavaScript 引擎，也被称为虚拟机，模拟实际计算机各种功能来实现代码的编译和执行。目前用在 Chrome 浏览器和 Node.js 中，其核心功能是执行易于人类理解的 JavaScript 代码。
 
 ## Mac 安装 V8
 
@@ -49,3 +49,8 @@ V8 是一个由 Google 开发的开源 JavaScript 引擎，目前用在 Chrome �
   - `source ~/.zshrc`
 
 > 使用 Demo 请参考 [d8-shell-examples](https://gist.github.com/kevincennis/0cd2138c78a07412ef21#d8-shell-examples)
+
+## 代码执行方式
+
+- 解释执行：解释执行的启动速度快，但是执行时的速度慢
+- 编译执行：编译执行的启动速度慢，但是执行时的速度快
