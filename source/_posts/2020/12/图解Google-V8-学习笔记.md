@@ -32,7 +32,7 @@ V8 是一个由 Google 开发的开源 JavaScript 引擎，也被称为虚拟机
   - `source ~/.zshrc`
   - From the directory you want to install V8 into, run `gclient`
 
-## Build V8
+### Build V8
 
   - `fetch v8`
   - `cd ~/v8`
@@ -47,6 +47,8 @@ V8 是一个由 Google 开发的开源 JavaScript 引擎，也被称为虚拟机
   - Add `alias tick-processor=~/v8/tools/mac-tick-processor`
   - Add `export D8_PATH="~/v8/out.gn/x64.optdebug"`
   - `source ~/.zshrc`
+
+> 使用 Demo 请参考 [d8-shell-examples](https://gist.github.com/kevincennis/0cd2138c78a07412ef21#d8-shell-examples)
 
 ## d8命令
 
@@ -68,9 +70,14 @@ $ d8 --print-scopes <file>
 $ d8 --print-bytecode <file>
 ```
 
-> 使用 Demo 请参考 [d8-shell-examples](https://gist.github.com/kevincennis/0cd2138c78a07412ef21#d8-shell-examples)
-
 ## 代码执行方式
 
 - 解释执行：解释执行的启动速度快，但是执行时的速度慢
 - 编译执行：编译执行的启动速度慢，但是执行时的速度快
+
+## JavaScript 虚拟机
+
+- Safari: JavaScriptCore
+- Firefox: TraceMonkey
+- Chrome: V8
+- Edge: Chakra
