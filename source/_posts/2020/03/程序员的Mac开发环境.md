@@ -82,6 +82,39 @@ $ source ~/.vimrc
 - `brew cleanup`: 清理
 - 一键清理: `brew update && brew upgrade && brew cleanup`
 
+## d8
+
+> 不要使用 `brew install v8`，可用命令是不完整的
+
+### 预备条件
+
+- Install Xcode (Avaliable on the Mac App Store)
+- Install Xcode Command Line Tools (Preferences > Downloads)
+- Install [depot_tools](https://www.chromium.org/developers/how-tos/install-depot-tools)
+  - `cd ~ && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git`
+  - `sudo nano ~/.zshrc`(zsh) or `sudo nano ~/.bash_profile`(bash)
+  - Add `export PATH=~/depot_tools:"$PATH"` (it's important that depot_tools comes first here)
+  - `source ~/.zshrc`
+  - From the directory you want to install V8 into, run `gclient`
+
+### Build V8
+
+  - `fetch v8`
+  - `cd ~/v8`
+  - `gclient sync`
+  - `tools/dev/v8gen.py x64.optdebug`
+  - `ninja -C out.gn/x64.optdebug` (prepare for lots of fan noise)
+
+  I'd also recommend adding these to your `.zshrc`:
+
+  - `sudo nano ~/.zshrc`
+  - Add `alias d8=~/v8/out.gn/x64.optdebug/d8`
+  - Add `alias tick-processor=~/v8/tools/mac-tick-processor`
+  - Add `export D8_PATH="~/v8/out.gn/x64.optdebug"`
+  - `source ~/.zshrc`
+
+> 使用 Demo 请参考 [d8-shell-examples](https://gist.github.com/kevincennis/0cd2138c78a07412ef21#d8-shell-examples)
+
 ## Git
 
 ### 命令行工具
