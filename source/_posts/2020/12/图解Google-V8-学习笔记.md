@@ -13,7 +13,15 @@ tags:
 
 ## 核心概念
 
-JIT、作用域、词法环境、执行上下文、CPU架构（intel、ARM、MIPS）、AST、机器语言
+- JIT: Just In Time，即时编译技术。混合使用编译器和解释器的技术。不常用代码解释执行，常用代码编译执行。
+- 惰性编译
+- 内联缓存
+- 隐藏类（Hide Class）
+- 事件循环系统（Event Loop）
+- 垃圾回收机制
+
+
+作用域、词法环境、执行上下文、CPU架构（intel、ARM、MIPS）、AST、机器语言
 
 ## V8 是什么
 
@@ -70,10 +78,21 @@ $ d8 --print-scopes <file>
 $ d8 --print-bytecode <file>
 ```
 
+## V8执行一段JavaScript流程
+
+解释执行:
+
+编译执行:
+
 ## 代码执行方式
 
-- 解释执行：解释执行的启动速度快，但是执行时的速度慢
-- 编译执行：编译执行的启动速度慢，但是执行时的速度快
+### 解释执行
+
+需要先将输入的源代码通过解析器编译成中间代码，之后直接使用解释器解释执行中间代码，然后直接输出结果。解释执行的启动速度快，但是执行时的速度慢。
+
+### 编译执行
+
+采用这种方式时，也需要先将源代码转换为中间代码，然后我们的编译器再将中间代码编译成机器代码。通常编译成的机器代码是以二进制文件形式存储的，需要执行这段程序的时候直接执行二进制文件就可以了。还可以使用虚拟机将编译后的机器代码保存在内存中，然后直接执行内存中的二进制代码。编译执行的启动速度慢，但是执行时的速度快。
 
 ## JavaScript 虚拟机
 
@@ -81,3 +100,36 @@ $ d8 --print-bytecode <file>
 - Firefox: TraceMonkey
 - Chrome: V8
 - Edge: Chakra
+
+## 变量提升（Hoisting）
+
+> 详细概念请参考 https://developer.mozilla.org/zh-CN/docs/Glossary/Hoisting
+
+```js
+// 函数表达式
+sayHello()
+var sayHello = function () {
+  var a = "极客时间"
+  return a
+}
+
+// sayHello() // TypeError: sayHello is not a function
+// var sayHello
+// sayHello = function () {
+//   var a = "极客时间"
+//   return a
+// }
+
+// 函数声明
+sayHello()
+function sayHello() {
+  var a = "极客时间"
+  return a
+}
+
+// function () {
+//   var a = "极客时间"
+//   return a
+// }
+// sayHello()
+```
