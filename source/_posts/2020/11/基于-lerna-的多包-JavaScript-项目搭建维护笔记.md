@@ -51,7 +51,7 @@ $ lerna create module-2
 
 ## yarn workspaces & Lerna Hoisting
 
-使用 [yarn workspaces](https://yarnpkg.com/lang/zh-Hans/docs/workspaces/) 结合 Lerna useWorkspaces 可以实现 [Lerna Hoisting](https://github.com/lerna/lerna/blob/main/doc/hoist.md)。这并不是多次一举，这可以让你在统一的地方（根目录）管理依赖，这即节省时间又节省空间。
+使用 [yarn workspaces](https://yarnpkg.com/lang/zh-Hans/docs/workspaces/) 结合 Lerna useWorkspaces 可以实现 [Lerna Hoisting](https://github.com/lerna/lerna/blob/main/doc/hoist.md)。这并不是多此一举，这可以让你在统一的地方（根目录）管理依赖，这即节省时间又节省空间。
 
 配置 lerna.json:
 
